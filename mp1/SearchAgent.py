@@ -1,5 +1,6 @@
 from BasicGraph import *
 import queue
+from queue import PriorityQueue as PQueue
 
 def dfs(bg, path, start, targets):
 
@@ -101,5 +102,21 @@ def bfs(bg, path, start, targets):
 def gbfs(graph, path, start, targets):
     pass
 
-def a_star(graph, path, start, targets):
-    pass
+def a_star(bg, path, start, targets):
+    target = targets[0]
+    closepoints = bg.getCloseDict(bg.graph_n)
+    openpoints = PQueue()
+    start.G = a_star_get_manh(start, target)
+    openpoints.put((start.F, start))
+    while True:
+        curpoint = openpoints.get()[1]
+        cur_tuple = curpoint.getTurple()
+        closepoints[cur_tuple] = True
+
+
+def a_star_get_manh(start, target):
+    row_dis = abs(target.row - start.row)
+    col_dis = abs(target.col - start.row)
+    distance = row_dis + col_dis
+    return distance
+
