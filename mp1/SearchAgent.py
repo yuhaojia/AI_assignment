@@ -11,20 +11,6 @@ def dfs(bg, path, start, targets):
     openlist = []
 
     print("this is the target", targets[0].row, targets[0].col)
-
-
-    # tp = Point(1, 3)
-    # stack.append(tp)
-    # closelist.append((1,2))
-    # # print(closelist[0].row, closelist[0].col)
-    # next = bg.move(tp)
-    # for item in next:
-    #     element = (item.row, item.col)
-    #     if element not in closelist:
-    #         print(item.row, item.col)
-    #     else:
-    #         print(False)
-    #
     stack.append(start)
 
     while True:
