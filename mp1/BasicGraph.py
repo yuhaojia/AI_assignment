@@ -64,6 +64,7 @@ class Point(object):
     def __init__(self, row, col):
         self.row = row
         self.col = col
+        self.last = None
 
     def isPoint(self, point):
         if self.row == point.row and self.col == point.col:
@@ -76,3 +77,7 @@ class Point(object):
             if self.row == point.row and self.col == point.col:
                 return True
         return False
+
+    def getTurple(self):
+        t = (self.row, self.col)
+        return t

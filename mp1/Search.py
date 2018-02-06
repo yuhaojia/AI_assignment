@@ -21,9 +21,12 @@ gbfs_path = []
 astar_path = []
 
 dfs_step_counter = dfs(bg, dfs_path, start, targets)
-print(dfs_step_counter)
+print(dfs_path)
+print("dfs steps to find target: ", dfs_step_counter)
 
-bfs_step_counter = bfs(bg.graph, bfs_path, start, targets)
+bfs_step_counter = bfs(bg, bfs_path, start, targets)
+print(bfs_path)
+print("bfs steps to find target", bfs_step_counter)
 
 gbfs_step_counter = gbfs(bg.graph, gbfs_path, start, targets)
 

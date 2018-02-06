@@ -68,12 +68,27 @@ import numpy as np
 # else:
 #     print(False)
 
+#
+# a = Point(1,1)
+# b = []
+# b.append(a)
+#
+# if a not in b:
+#     print(True)
+# else :
+#     print(False)
 
-a = Point(1,1)
-b = []
-b.append(a)
+import queue
 
-if a not in b:
-    print(True)
-else :
-    print(False)
+q = queue.Queue()
+q.put(5)
+q.put(2)
+q.put(3)
+
+while True:
+    if q.empty():
+        print("Done ")
+        break
+    r = q.get()
+    print(r)
+
