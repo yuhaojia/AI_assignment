@@ -91,7 +91,6 @@ def bfs(bg, path, start, targets):
                     step = step + 1
                     stepdict[pos] = step
 
-
     return -1
 
 
@@ -103,13 +102,4 @@ def gbfs(graph, path, start, targets):
     pass
 
 def a_star(graph, path, start, targets):
-    pass
-
-def testFun():
-    print("this is a test")
-
-def dfsHelper(graph, path, count, cur, target):
-    pass
-
-def bfsHelper():
     pass
