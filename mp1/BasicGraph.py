@@ -24,9 +24,9 @@ class BasicGraph(object):
 
     def dirAvai(self, point):
         if self.graph[point.row][point.col] == "%":
-            return True
-        else:
             return False
+        else:
+            return True
 
     def move(self, curPos):
         nextPoss = []
@@ -64,3 +64,15 @@ class Point(object):
     def __init__(self, row, col):
         self.row = row
         self.col = col
+
+    def isPoint(self, point):
+        if self.row == point.row and self.col == point.col:
+            return True
+        else:
+            return False
+
+    def isInList(self, lst):
+        for point in lst:
+            if self.row == point.row and self.col == point.col:
+                return True
+        return False

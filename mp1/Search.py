@@ -20,7 +20,8 @@ bfs_path = []
 gbfs_path = []
 astar_path = []
 
-dfs_step_counter = dfs(bg.graph, dfs_path, start, targets)
+dfs_step_counter = dfs(bg, dfs_path, start, targets)
+print(dfs_step_counter)
 
 bfs_step_counter = bfs(bg.graph, bfs_path, start, targets)
 
