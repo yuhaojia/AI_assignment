@@ -1,9 +1,35 @@
 from BasicGraph import *
 import numpy as np
+from queue import PriorityQueue as PQueue
+pq = PQueue()
+pq.put((3, (3, 3)))
+pq.put((1, (1, 1)))
+pq.put((2, (2, 2)))
+pq.put((2, (4, 4)))
+
+# print(pq.get())
+# print(pq.get())
+# print(pq.get())
+# print(pq.qsize())
+
+while not pq.empty():
+    print(pq.get()[1])
 
 #
 # b = BasicGraph("mediumMaze.txt")
 # b.initGraph()
+#
+# closepoint = b.getCloseDict(b.graph_n)
+# # print(closepoint)
+# p = Point(21,0)
+# r = p.isInDict(closepoint)
+# print(r)
+
+
+
+
+
+# print(b.graph_n)
 # # g = np.array(b.graph)
 #
 #
@@ -68,12 +94,36 @@ import numpy as np
 # else:
 #     print(False)
 
+#
+# a = Point(1,1)
+# b = []
+# b.append(a)
+#
+# if a not in b:
+#     print(True)
+# else :
+#     print(False)
 
-a = Point(1,1)
-b = []
-b.append(a)
+# import queue
+#
+# q = queue.Queue()
+# q.put(5)
+# q.put(2)
+# q.put(3)
+#
+# while True:
+#     if q.empty():
+#         print("Done ")
+#         break
+#     r = q.get()
+#     print(r)
 
-if a not in b:
-    print(True)
-else :
-    print(False)
+
+# a = (1, 2)
+# b = {(1, 3):True, (2, 3): True}
+# a = Point(1,2)
+# r = a.isInDict(b)
+# print(r)
+
+
+print(abs(-1000))

@@ -1,6 +1,6 @@
 from BasicGraph import *
-import sys, math, heapq
-
+import queue
+from queue import PriorityQueue as PQueue
 
 def dfs(bg, path, start, targets):
 
@@ -11,20 +11,29 @@ def dfs(bg, path, start, targets):
     stepdict = {}
     openlist = []
 
-    print("this is the target", targets[0].row, targets[0].col)
+    # print("this is the target", targets[0].row, targets[0].col)
     stack.append(start)
+    target = targets[0]
 
     while True:
         if not stack:
             break
         curpoint = stack.pop()
-        curpoint_tuple = (curpoint.row, curpoint.col)
+        # curpoint_tuple = (curpoint.row, curpoint.col)
         # print("current: ", curpoint.row, curpoint.col)
         if curpoint.isPoint(start):
             step = 0
         else:
             step = stepdict.get(curpoint)
-        if curpoint.isPoint(targets[0]):
+        if curpoint.isPoint(target):
+            while True:
+                if curpoint.last is None:
+                    break
+                last_point = curpoint.last
+                path.append(last_point.getTurple())
+                curpoint = last_point
+            path.reverse()
+            path.append(target.getTurple())
             return step
         # print(curpoint)
 
@@ -35,41 +44,79 @@ def dfs(bg, path, start, targets):
         for pos in nextpos:
             # pos_tuple = (pos.row, pos.col)
             if pos.isInList(closelist) is False:
-                print(pos.row, pos.col)
+                pos.last = curpoint
+                # print(pos.row, pos.col)
                 stack.append(pos)
                 if pos not in stepdict:
                     step = step + 1
                     stepdict[pos] = step
     return -1
 
-def bfs(graph, path, start, targets):
-    pass
+def bfs(bg, path, start, targets):
+    q = queue.Queue()
+    stepdict = {}
+    closelist = []
+    # print(type(path))
+
+    q.put(start)
+    target = targets[0]
+    while True:
+        if q.empty():
+            break
+        curpoint = q.get()
+        if curpoint.isPoint(start):
+            step = 0
+        else:
+            step = stepdict.get(curpoint)
+        if curpoint.isPoint(target):
+            print(curpoint.last)
+            while True:
+                if curpoint.last is None:
+                    break
+                last_point = curpoint.last
+                path.append(last_point.getTurple())
+                curpoint = last_point
+            path.reverse()
+            path.append(target.getTurple())
+            return step
+        closelist.append(curpoint)
+        nextpos = bg.move(curpoint)
+        for pos in nextpos:
+            if pos.isInList(closelist) is False:
+                pos.last = curpoint
+                # print(pos.getTurple())
+                # print(pos.last)
+                q.put(pos)
+                # print(pos.last)
+                if pos not in stepdict:
+                    step = step + 1
+                    stepdict[pos] = step
+
+    return -1
+
+
+
+
+
 
 def gbfs(graph, path, start, targets):
     pass
 
-def a_star(graph, path, start, targets):
-    # Adjust the size of the board and the cells
-    cell_size = 50
-    num_cells = 20
-
-    cells = {}      # Dictionary of Cells where a tuple (immutable set) of (x,y) coordinates is used as keys
-
-    for x in range(num_cells):
-        for y in range(num_cells):
-            cells[(x,y)]= { 'state':None,   # None, Wall, Goal, Start Are the possible states. None is walkable 
-                        'f_score':None, # f() = g() + h() This is used to determine next cell to process
-                        'h_score':None, # The heuristic score, We use straight-line distance: sqrt((x1-x0)^2 + (y1-y0)^2)
-                        'g_score':None, # The cost to arrive to this cell, from the start cell
-                        'parent':None}  # In order to walk the found path, keep track of how we arrived to each cell
-    
+def a_star(bg, path, start, targets):
+    target = targets[0]
+    closepoints = bg.getCloseDict(bg.graph_n)
+    openpoints = PQueue()
+    start.G = a_star_get_manh(start, target)
+    openpoints.put((start.F, start))
+    while True:
+        curpoint = openpoints.get()[1]
+        cur_tuple = curpoint.getTurple()
+        closepoints[cur_tuple] = True
 
 
-def testFun():
-    print("this is a test")
+def a_star_get_manh(start, target):
+    row_dis = abs(target.row - start.row)
+    col_dis = abs(target.col - start.row)
+    distance = row_dis + col_dis
+    return distance
 
-def dfsHelper(graph, path, count, cur, target):
-    pass
-
-def bfsHelper():
-    pass

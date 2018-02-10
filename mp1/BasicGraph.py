@@ -1,5 +1,6 @@
 import re
 import numpy as np
+import math
 
 class BasicGraph(object):
     def __init__(self, filename):
@@ -58,12 +59,25 @@ class BasicGraph(object):
             points.append(point)
         return points
 
+    def getCloseDict(self, gn, target = '%'):
+        points = {}
+        pairs = zip(*np.where(gn == target))
+        pairs = list(pairs)
+        for pair in pairs:
+            points[pair] = True
+            # print(points[pair])
+        return points
+
+    def isClosePoint(self):
 
 
 class Point(object):
     def __init__(self, row, col):
         self.row = row
         self.col = col
+        self.last = None
+        self.F = 0
+        self.G = math.inf
 
     def isPoint(self, point):
         if self.row == point.row and self.col == point.col:
@@ -76,3 +90,16 @@ class Point(object):
             if self.row == point.row and self.col == point.col:
                 return True
         return False
+
+    def getTurple(self):
+        t = (self.row, self.col)
+        return t
+
+    def isInDict(self, dict):
+        t = (self.row, self.col)
+        try:
+            result = dict[t]
+        except:
+            result = False
+
+        return result
