@@ -1,4 +1,5 @@
 from BasicGraph import *
+import sys, math, heapq
 
 
 def dfs(bg, path, start, targets):
@@ -48,7 +49,21 @@ def gbfs(graph, path, start, targets):
     pass
 
 def a_star(graph, path, start, targets):
-    pass
+    # Adjust the size of the board and the cells
+    cell_size = 50
+    num_cells = 20
+
+    cells = {}      # Dictionary of Cells where a tuple (immutable set) of (x,y) coordinates is used as keys
+
+    for x in range(num_cells):
+        for y in range(num_cells):
+            cells[(x,y)]= { 'state':None,   # None, Wall, Goal, Start Are the possible states. None is walkable 
+                        'f_score':None, # f() = g() + h() This is used to determine next cell to process
+                        'h_score':None, # The heuristic score, We use straight-line distance: sqrt((x1-x0)^2 + (y1-y0)^2)
+                        'g_score':None, # The cost to arrive to this cell, from the start cell
+                        'parent':None}  # In order to walk the found path, keep track of how we arrived to each cell
+    
+
 
 def testFun():
     print("this is a test")
