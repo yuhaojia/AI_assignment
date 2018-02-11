@@ -69,6 +69,7 @@ class BasicGraph(object):
         return points
 
     def isClosePoint(self):
+        pass
 
 
 class Point(object):
