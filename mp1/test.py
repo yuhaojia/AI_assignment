@@ -1,19 +1,23 @@
 from BasicGraph import *
 import numpy as np
 from queue import PriorityQueue as PQueue
-pq = PQueue()
-pq.put((3, (3, 3)))
-pq.put((1, (1, 1)))
-pq.put((2, (2, 2)))
-pq.put((2, (4, 4)))
-
+import heapq
+from SearchAgent import *
+# pq = PQueue()
+# pq.put((3, (3, 3)))
+# pq.put((1, (1, 1)))
+# pq.put((2, (2, 2)))
+# pq.put((2, (4, 4)))
+# pq.put((4, (2, 2)))
+#
+#
 # print(pq.get())
 # print(pq.get())
 # print(pq.get())
 # print(pq.qsize())
-
-while not pq.empty():
-    print(pq.get()[1])
+#
+# while not pq.empty():
+#     print(pq.get()[1])
 
 #
 # b = BasicGraph("mediumMaze.txt")
@@ -65,8 +69,13 @@ while not pq.empty():
 
 
 # a = [1, 2, 3, 4, 5, 6]
+# for i in len(a):
+#     ti = a[i]
+# print(t1)
 # b = a.pop()
 # print(b)
+# a.remove(7)
+# print(a)
 
 # a = []
 # a.append(123)
@@ -121,9 +130,77 @@ while not pq.empty():
 
 # a = (1, 2)
 # b = {(1, 3):True, (2, 3): True}
-# a = Point(1,2)
-# r = a.isInDict(b)
+# # a = Point(1,2)
+# # r = a.isInDict(b)
+# print(b[0])
+
+
+# print(abs(-1000))
+
+
+
+# a = {1 : "1", 2 : "2"}
+# print(a[3])
+# print(type(a[2]))
+#
+# a = Point(1, 1)
+# a.F = 11
+# b = Point(2, 2)
+# b.F = 2
+# c = Point(3, 3)
+# c.F = 3
+# # print(a.F)
+# q = []
+# heapq.heappush(q, b)
+# heapq.heappush(q, a)
+# heapq.heappush(q, c)
+# b.F = 13
+# heapq.heappush(q, b)
+# # obj = heapq.heappop(q)
+# # print(obj.getTuple())
+# # print(type(q))
+# # print(len(q))
+#
+# for i in range(10):
+#     try:
+#         obj = heapq.heappop(q)
+#         print(obj.getTuple())
+#     except IndexError:
+#         print("done")
+#         break
+
+l = []
+a = (1, 1)
+b = (2, 2)
+c = (3, 3)
+
+p = (a, b)
+print(p[0])
+
+
+# d = str(a)
+# print(d)
+# a = str(a)
+# to = 'to'
+# b = str(b)
+# l.append(a)
+# l.append(to)
+# l.append(b)
+# s = ''.join(l)
+# print(type(s))
+# r = pairToString(a, b)
 # print(r)
+# print(type(r))
 
+# l = []
+# l.append('foo')
+# l.append('bar')
+# l.append('baz')
+#
+# s = ''.join(l)
+# print(s)
 
-print(abs(-1000))
+# k = [1]
+# print(k)
+# print(type(k))
+

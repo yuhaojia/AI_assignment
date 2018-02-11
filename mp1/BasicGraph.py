@@ -1,6 +1,7 @@
 import re
 import numpy as np
 import math
+import heapq
 
 class BasicGraph(object):
     def __init__(self, filename):
@@ -59,16 +60,45 @@ class BasicGraph(object):
             points.append(point)
         return points
 
+
+    # the type of pair here is tuple
     def getCloseDict(self, gn, target = '%'):
         points = {}
         pairs = zip(*np.where(gn == target))
         pairs = list(pairs)
         for pair in pairs:
             points[pair] = True
-            # print(points[pair])
         return points
 
     def isClosePoint(self):
+        pass
+
+    # surround for a_star
+    # def surround(self, curPos, closetuples, openlist, openpoints):
+    def surround(self, curPos):
+        nextPoss = []
+        # needUpdate = False
+        for m in range(4):
+            nextPos = Point(curPos.row + self.directionRow[m],
+                            curPos.col + self.directionCol[m])
+            nextPoss.append(nextPos)
+        return nextPoss
+            # if nextPos.isClosed(closetuples):
+            #     # nextPoss.append(nextPos)
+            #     continue
+            # if nextPos.isInList(openlist):
+            #     if curPos.G + 1 < nextPos.G:
+            #         nextPos.G = curPos.G + 1
+            #         nextPos.updateF()
+            #         nextPos.last = curPos
+            #         # needUpdate = True
+            # else:
+            #     openlist.append(nextPos)
+            #     nextPos.last = curPos
+            #     nextPos.G = curPos.G + 1
+            #     nextPos.F
+
+
 
 
 class Point(object):
@@ -78,6 +108,7 @@ class Point(object):
         self.last = None
         self.F = 0
         self.G = math.inf
+        self.H = 0
 
     def isPoint(self, point):
         if self.row == point.row and self.col == point.col:
@@ -91,7 +122,7 @@ class Point(object):
                 return True
         return False
 
-    def getTurple(self):
+    def getTuple(self):
         t = (self.row, self.col)
         return t
 
@@ -103,3 +134,18 @@ class Point(object):
             result = False
 
         return result
+
+    def isClosed(self, closedict):
+        t = self.getTuple()
+        try:
+            boo = closedict[t]
+        except KeyError:
+            return False
+        return closedict[t]
+
+    def __lt__(self, other):
+        return self.F < other.F
+
+    def updateF(self):
+        self.F = self.G + self.H
+

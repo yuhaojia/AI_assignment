@@ -3,7 +3,9 @@ from SearchAgent import *
 
 startMarker = 'P'
 targetMarker = '.'
-bg = BasicGraph("mediumMaze.txt")
+# bg = BasicGraph("openMaze.txt")
+# bg = BasicGraph("mediumMaze.txt")
+bg = BasicGraph("bigMaze.txt")
 bg.initGraph()
 start = bg.findP(bg.graph_n, startMarker)
 targets = bg.findTarget(bg.graph_n, targetMarker)
@@ -20,14 +22,16 @@ bfs_path = []
 gbfs_path = []
 astar_path = []
 
-# dfs_step_counter = dfs(bg, dfs_path, start, targets)
-# print(dfs_path)
-# print("dfs steps to find target: ", dfs_step_counter)
+dfs_step_counter = dfs(bg, dfs_path, start, targets)
+print(dfs_path)
+print("dfs steps to find target: ", dfs_step_counter)
 #
-# bfs_step_counter = bfs(bg, bfs_path, start, targets)
-# print(bfs_path)
-# print("bfs steps to find target", bfs_step_counter)
+bfs_step_counter = bfs(bg, bfs_path, start, targets)
+print(bfs_path)
+print("bfs steps to find target", bfs_step_counter)
 
 gbfs_step_counter = gbfs(bg, gbfs_path, start, targets)
 
 astar_step_counter = a_star(bg, astar_path, start, targets)
+print(astar_path)
+print("a_star steps to find target: ", astar_step_counter)
