@@ -5,10 +5,10 @@ startMarker = 'P'
 targetMarker = '.'
 # bg = BasicGraph("openMaze.txt")
 # bg = BasicGraph("mediumMaze.txt")
-# bg = BasicGraph("bigMaze.txt")
+bg = BasicGraph("bigMaze.txt")
 # bg = BasicGraph("tinySearch.txt")
 # bg = BasicGraph("smallSearch.txt")
-bg = BasicGraph("mediumSearch.txt")
+# bg = BasicGraph("mediumSearch.txt")
 bg.initGraph()
 start = bg.findP(bg.graph_n, startMarker)
 targets = bg.findTarget(bg.graph_n, targetMarker)
@@ -17,7 +17,6 @@ targets = bg.findTarget(bg.graph_n, targetMarker)
 
 # applied the functions to calculate steps
 # record time occupied and find the best one
-
 # miss time count for each agent and comparation
 dfs_path = []
 bfs_path = []
@@ -29,16 +28,16 @@ astar_mul_path = []
 # print(dfs_path)
 # print("dfs steps to find target: ", dfs_step_counter)
 # #
-# bfs_step_counter = bfs(bg, bfs_path, start, targets)
-# print(bfs_path)
-# print("bfs steps to find target", bfs_step_counter)
+bfs_step_counter = bfs(bg, bfs_path, start, targets)
+print(bfs_path)
+print("bfs steps to find target", bfs_step_counter)
 #
 # gbfs_step_counter = gbfs(bg, gbfs_path, start, targets)
 
-# astar_step_counter = a_star(bg, astar_path, start, targets)
-# print(astar_path)
-# print("a_star steps to find target: ", astar_step_counter)
-# print(len(astar_path))
+astar_step_counter = a_star(bg, astar_path, start, targets)
+print(astar_path)
+print("a_star steps to find target: ", astar_step_counter)
+print(len(astar_path))
 
 #
 astar_mul_counter = a_star_multiple_targets(bg, astar_mul_path, start, targets)

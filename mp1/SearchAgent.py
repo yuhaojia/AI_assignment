@@ -74,7 +74,7 @@ def bfs(bg, path, start, targets):
         if curpoint.isPoint(start):
             step = 0
         if curpoint.isPoint(target):
-            print(curpoint.last)
+            # print(curpoint.last)
             while True:
                 if curpoint.last is None:
                     break
@@ -128,7 +128,7 @@ def a_star(bg, path, start, targets):
         except IndexError:
             print("No more point, no solution for this question")
             break
-        if curpoint.isPoint(target):
+        if curpoint.isPoint(target):# or target.isInList(openlist):
             # print("find the shorest way to the target")
             # print("target GFH: ", curpoint.F, curpoint.G, curpoint.H)
             step = 0
@@ -156,15 +156,18 @@ def a_star(bg, path, start, targets):
             if (nextpoint.isInList(openlist) is False):# or (curpoint.G + 1 < nextpoint.G):
                 # if curpoint.G + 1 < nextpoint.G:
                 nextpoint.G = curpoint.G + 1
-                nextpoint.updateF()
-                nextpoint.last = curpoint
-                heapq.heappush(openlist, nextpoint)
-            else:
-                nextpoint.G = curpoint.G + 1
                 nextpoint.H = a_star_get_manh(nextpoint, target)
                 nextpoint.updateF()
                 nextpoint.last = curpoint
                 heapq.heappush(openlist, nextpoint)
+            else:
+                if curpoint.G + 1 < nextpoint.G:
+                    nextpoint.G = curpoint.G + 1
+                    # nextpoint.H = a_star_get_manh(nextpoint, target)
+                    # print(nextpoint.H)
+                    nextpoint.updateF()
+                    nextpoint.last = curpoint
+                    heapq.heappush(openlist, nextpoint)
 
 
 def a_star_get_manh(start, target):
@@ -246,6 +249,7 @@ def a_star_multiple_targets_old2(bg, path, start, targets):
 
 
 def a_star_multiple_targets(bg, path, start, targets):
+    step_sum = 0
     visited = []
     # unvisited = []
     visited.append(start)
@@ -257,6 +261,7 @@ def a_star_multiple_targets(bg, path, start, targets):
     # graph_mst = []
     start.H = a_star_mst(bg, start, targets)
     start.G = 0
+    start.last = None
     start.updateF()
     heapq.heappush(openlist, start)
     openlist.append(start)
@@ -272,9 +277,9 @@ def a_star_multiple_targets(bg, path, start, targets):
             # print(len(visited))
             # print(unvisited)
             # print(curpoint.F)
-            step = 0
+            # step = 0
             # while True:
-            #     if curpoint.last is None:
+            #     if curpoint.last is None:t
             #         break
             #
             #     print("this is a tst")
@@ -285,13 +290,31 @@ def a_star_multiple_targets(bg, path, start, targets):
             # path.reverse()
             # path.append(visited[-1])
             # path.remove(path[0])
-            return step
+            return step_sum
         if curpoint.isInList(unvisited):
             for u in unvisited:
                 if u.isPoint(curpoint):
                     unvisited.remove(u)
-            # unvisited.remove(curpoint.getTuple())
             visited.append(curpoint)
+            step = 0
+            temppath = []
+            temppath.append(curpoint.getTuple())
+            while True:
+                if curpoint.last is None:
+                    break
+                last_point = curpoint.last
+                temppath.append(last_point.getTuple())
+                step = step + 1
+                curpoint = last_point
+            temppath.reverse()
+            temppath.remove(temppath[0])
+            path.extend(temppath)
+
+            nextstep = a_star_multiple_targets(bg, path, visited[-1], unvisited)
+            step_sum = step_sum + nextstep
+
+
+
 
         if curpoint.isClosed(closetuples):
             continue
@@ -305,6 +328,7 @@ def a_star_multiple_targets(bg, path, start, targets):
             if (nextpoint.isInList(openlist) is False):
                 # if curpoint.G + 1 < nextpoint.G:
                 nextpoint.G = curpoint.G + 1
+                nextpoint.H = a_star_mst(bg, nextpoint, unvisited)
                 nextpoint.updateF()
                 nextpoint.last = curpoint
                 # print(nextpoint.last.getTuple())
@@ -315,7 +339,7 @@ def a_star_multiple_targets(bg, path, start, targets):
                 nextpoint.updateF()
                 nextpoint.last = curpoint
                 heapq.heappush(openlist, nextpoint)
-        # print("this is a tet")
+        print("loading ...")
 
 
 
@@ -341,22 +365,14 @@ def a_star_mst(bg, start, targets):
         for j in range(i+1, point_num):
             temppath = []
             templist = [dot_helper[j]]
-            temp_dis = a_star(bg, temppath, dot_helper[i], templist)
+            # temp_dis = a_star(bg, temppath, dot_helper[i], templist)
+            temp_dis = bfs(bg, temppath, dot_helper[i], templist)
             graph_mst[i][j] = temp_dis
     X = csr_matrix(graph_mst)
     Tcsr = minimum_spanning_tree(X)
     mst = Tcsr.toarray().astype(int)
     H = int(sum(sum(mst)))
     return H
-
-
-
-
-
-
-
-
-
 
 
 
@@ -371,3 +387,65 @@ def pairToString(tuple1, tuple2):
     s = ''.join(l)
     return s
 
+
+# def a_star_test(bg, path, start, targets):
+#     target = targets[0]
+#     closetuples = bg.getCloseDict(bg.graph_n)
+#     openlist = []
+#     start.H = a_star_mst(bg, start, targets)
+#     start.G = 0
+#     start.updateF()
+#     heapq.heappush(openlist, start)
+#     # start_tuple = start.getTuple()
+#     openlist.append(start)
+#     # needUpdateQ = False
+#     # step = 0
+#
+#     while True:
+#         # if target.isInList(openlist):
+#         #     print("find the shorest way to the target")
+#
+#
+#         try:
+#             curpoint = heapq.heappop(openlist)
+#             # step = step + 1
+#         except IndexError:
+#             print("No more point, no solution for this question")
+#             break
+#         if curpoint.isPoint(target):
+#             # print("find the shorest way to the target")
+#             # print("target GFH: ", curpoint.F, curpoint.G, curpoint.H)
+#             step = 0
+#             while True:
+#                 if curpoint.last is None:
+#                     break
+#
+#                 last_point = curpoint.last
+#                 path.append(last_point.getTuple())
+#                 step = step + 1
+#                 curpoint = last_point
+#             path.reverse()
+#             path.append(target.getTuple())
+#             path.remove(path[0])
+#             return step
+#
+#         if curpoint.isClosed(closetuples):
+#             continue
+#         curtuple = curpoint.getTuple()
+#         closetuples[curtuple] = True
+#         nextpoints = bg.surround(curpoint)
+#         for nextpoint in nextpoints:
+#             if nextpoint.isClosed(closetuples):
+#                 continue
+#             if (nextpoint.isInList(openlist) is False):# or (curpoint.G + 1 < nextpoint.G):
+#                 # if curpoint.G + 1 < nextpoint.G:
+#                 nextpoint.G = curpoint.G + 1
+#                 nextpoint.updateF()
+#                 nextpoint.last = curpoint
+#                 heapq.heappush(openlist, nextpoint)
+#             else:
+#                 nextpoint.G = curpoint.G + 1
+#                 nextpoint.H = a_star_mst(bg, nextpoint, targets)
+#                 nextpoint.updateF()
+#                 nextpoint.last = curpoint
+#                 heapq.heappush(openlist, nextpoint)
