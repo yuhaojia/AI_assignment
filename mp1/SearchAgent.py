@@ -2,6 +2,8 @@ from BasicGraph import *
 import queue
 from queue import PriorityQueue as PQueue
 import heapq
+from scipy.sparse import csr_matrix
+from scipy.sparse.csgraph import minimum_spanning_tree
 
 def dfs(bg, path, start, targets):
 
@@ -111,7 +113,7 @@ def a_star(bg, path, start, targets):
     start.updateF()
     heapq.heappush(openlist, start)
     # start_tuple = start.getTuple()
-    openlist.append((start))
+    openlist.append(start)
     # needUpdateQ = False
     # step = 0
 
@@ -127,18 +129,20 @@ def a_star(bg, path, start, targets):
             print("No more point, no solution for this question")
             break
         if curpoint.isPoint(target):
-            print("find the shorest way to the target")
-            print("target GFH: ", curpoint.F, curpoint.G, curpoint.H)
+            # print("find the shorest way to the target")
+            # print("target GFH: ", curpoint.F, curpoint.G, curpoint.H)
             step = 0
             while True:
                 if curpoint.last is None:
                     break
+
                 last_point = curpoint.last
                 path.append(last_point.getTuple())
                 step = step + 1
                 curpoint = last_point
             path.reverse()
             path.append(target.getTuple())
+            path.remove(path[0])
             return step
 
         if curpoint.isClosed(closetuples):
@@ -149,17 +153,18 @@ def a_star(bg, path, start, targets):
         for nextpoint in nextpoints:
             if nextpoint.isClosed(closetuples):
                 continue
-            if (nextpoint.isInList(openlist) is False) or (curpoint.G + 1 < nextpoint.G):
+            if (nextpoint.isInList(openlist) is False):# or (curpoint.G + 1 < nextpoint.G):
                 # if curpoint.G + 1 < nextpoint.G:
                 nextpoint.G = curpoint.G + 1
                 nextpoint.updateF()
                 nextpoint.last = curpoint
                 heapq.heappush(openlist, nextpoint)
-            # else:
-            #     nextpoint.G = curpoint.G + 1
-            #     nextpoint.updateF()
-            #     nextpoint.last = curpoint
-            #     heapq.heappush(openlist, nextpoint)
+            else:
+                nextpoint.G = curpoint.G + 1
+                nextpoint.H = a_star_get_manh(nextpoint, target)
+                nextpoint.updateF()
+                nextpoint.last = curpoint
+                heapq.heappush(openlist, nextpoint)
 
 
 def a_star_get_manh(start, target):
@@ -168,7 +173,7 @@ def a_star_get_manh(start, target):
     distance = row_dis + col_dis
     return distance
 
-def a_star_multiple_targets(bg, path, start, targets):
+def a_star_multiple_targets_old(bg, path, start, targets):
     visited = []
     unvisited = []
     visited.append(start.getTuple())
@@ -198,6 +203,158 @@ def a_star_multiple_targets(bg, path, start, targets):
         unvisited.remove(bestpair[1])
 
 
+def a_star_multiple_targets_old2(bg, path, start, targets):
+    visited = []
+    unvisited = []
+    visited.append(start)
+    # path = []
+    step = 0
+    for target in targets:
+        unvisited.append(target)
+
+    while True:
+        if not unvisited:
+            print("find the shortest of multiple targets")
+            break
+
+        if not visited:
+            print("No start point")
+            return -1
+
+        nexttarget = None
+        curpoint = visited[-1]
+        minpathlen = math.inf
+        visited.append(nexttarget)
+        pathhelper = []
+        # curstep = 0
+        for u in unvisited:
+            u_list = [u]
+            pathhelper2 = []
+            curpathlen = a_star(bg, pathhelper2, curpoint, u_list)
+            # curpathlen = bfs(bg, pathhelper, curpoint, u_list)
+            if curpathlen < minpathlen:
+                minpathlen = curpathlen
+                visited[-1] = u
+                pathhelper = pathhelper2
+                # curstep = curpathlen
+        unvisited.remove(visited[-1])
+        # print(visited[-1].getTuple())
+        # print(minpathlen)
+        path.extend(pathhelper)
+        step = step + minpathlen
+    return step
+
+
+def a_star_multiple_targets(bg, path, start, targets):
+    visited = []
+    # unvisited = []
+    visited.append(start)
+    # for target in targets:
+    #     unvisited.append(target)
+    unvisited = targets
+    closetuples = bg.getCloseDict(bg.graph_n)
+    openlist = []
+    # graph_mst = []
+    start.H = a_star_mst(bg, start, targets)
+    start.G = 0
+    start.updateF()
+    heapq.heappush(openlist, start)
+    openlist.append(start)
+
+    while True:
+        try:
+            curpoint = heapq.heappop(openlist)
+        except IndexError:
+            print("No more point, no solution for this question")
+            break
+        if not unvisited:
+            print("find the shorest way to the targets")
+            # print(len(visited))
+            # print(unvisited)
+            # print(curpoint.F)
+            step = 0
+            # while True:
+            #     if curpoint.last is None:
+            #         break
+            #
+            #     print("this is a tst")
+            #     last_point = curpoint.last
+            #     path.append(last_point.getTuple())
+            #     step = step + 1
+            #     curpoint = last_point
+            # path.reverse()
+            # path.append(visited[-1])
+            # path.remove(path[0])
+            return step
+        if curpoint.isInList(unvisited):
+            for u in unvisited:
+                if u.isPoint(curpoint):
+                    unvisited.remove(u)
+            # unvisited.remove(curpoint.getTuple())
+            visited.append(curpoint)
+
+        if curpoint.isClosed(closetuples):
+            continue
+
+        curtuple = curpoint.getTuple()
+        closetuples[curtuple] = True
+        nextpoints = bg.surround(curpoint)
+        for nextpoint in nextpoints:
+            if nextpoint.isClosed(closetuples):
+                continue
+            if (nextpoint.isInList(openlist) is False):
+                # if curpoint.G + 1 < nextpoint.G:
+                nextpoint.G = curpoint.G + 1
+                nextpoint.updateF()
+                nextpoint.last = curpoint
+                # print(nextpoint.last.getTuple())
+                heapq.heappush(openlist, nextpoint)
+            else:
+                nextpoint.G = curpoint.G + 1
+                nextpoint.H = a_star_mst(bg, nextpoint, unvisited)
+                nextpoint.updateF()
+                nextpoint.last = curpoint
+                heapq.heappush(openlist, nextpoint)
+        # print("this is a tet")
+
+
+
+
+
+
+
+def a_star_mst(bg, start, targets):
+    # for target in targets:
+    graph_n = bg.graph_n
+    # point_num = graph_n.shape[0] * graph_n.shape[1]
+    point_num = len(targets) + 1
+    graph_mst = np.zeros((point_num, point_num), dtype='int')
+    graph_mst = graph_mst.tolist()
+    dot_helper = [start]
+    # print(point_num)
+    dot_helper.extend(targets)
+    # for target in targets:
+    #     temppath = []
+    #     templist = [target]
+    #     distance = a_star(bg, temppath, start, templist)
+    for i in range(point_num):
+        for j in range(i+1, point_num):
+            temppath = []
+            templist = [dot_helper[j]]
+            temp_dis = a_star(bg, temppath, dot_helper[i], templist)
+            graph_mst[i][j] = temp_dis
+    X = csr_matrix(graph_mst)
+    Tcsr = minimum_spanning_tree(X)
+    mst = Tcsr.toarray().astype(int)
+    H = int(sum(sum(mst)))
+    return H
+
+
+
+
+
+
+
 
 
 
@@ -213,7 +370,4 @@ def pairToString(tuple1, tuple2):
     l.append(tuple2)
     s = ''.join(l)
     return s
-
-
-
 

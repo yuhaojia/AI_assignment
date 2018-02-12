@@ -3,6 +3,8 @@ import numpy as np
 from queue import PriorityQueue as PQueue
 import heapq
 from SearchAgent import *
+from scipy.sparse import csr_matrix
+from scipy.sparse.csgraph import minimum_spanning_tree
 # pq = PQueue()
 # pq.put((3, (3, 3)))
 # pq.put((1, (1, 1)))
@@ -69,6 +71,10 @@ from SearchAgent import *
 
 
 # a = [1, 2, 3, 4, 5, 6]
+# if 5 in a:
+#     print(True)
+# else:
+#     print(False)
 # for i in len(a):
 #     ti = a[i]
 # print(t1)
@@ -76,6 +82,14 @@ from SearchAgent import *
 # print(b)
 # a.remove(7)
 # print(a)
+# while True:
+#     if not a:
+#         break
+#     print(a.pop())
+# a.append(None)
+# a.append(None)
+# print(len(a))
+
 
 # a = []
 # a.append(123)
@@ -169,14 +183,17 @@ from SearchAgent import *
 #         print("done")
 #         break
 
-l = []
-a = (1, 1)
-b = (2, 2)
-c = (3, 3)
-
-p = (a, b)
-print(p[0])
-
+# l = []
+# a = (1, 1)
+# b = Point(2, 2)
+# c = (3, 3)
+# #
+# # p = (a, b)
+# # print(p[0])
+# d = b
+# d.row = d.row + 1
+# print(b.row)
+# print(d)
 
 # d = str(a)
 # print(d)
@@ -204,3 +221,45 @@ print(p[0])
 # print(k)
 # print(type(k))
 
+# a = np.array([[0, 8, 0, 3],[0, 0, 2, 5],[0, 0, 0, 6],[0, 0, 0, 0]])
+# print(a.shape)
+# x = csr_matrix([[0, 8, 0, 3],[0, 0, 2, 5],[0, 0, 0, 6],[0, 0, 0, 0]])
+# print(x)
+# Tcsr = minimum_spanning_tree(x)
+# r = Tcsr.toarray().astype(int)
+# print(r)
+# print(type(r))
+# # print("this is the first sum", sum(r))
+# # print("this is the second sum", int(sum(sum(r))))
+# print(type(int(sum(sum(r)))))
+
+# n = np.zeros((5, 5), dtype='int')
+# # n = n.tolist()
+# # print(type(n))
+# # print(n)
+# n[1][1] = 10
+# print(n[1][1])
+#
+#
+#
+# def a():
+#     b = 1
+#     c = 2
+#     return b,c
+#
+# r = a()
+# print(r)
+
+
+# a = (1, 1)
+# b = (2, 2)
+# c = (3, 3)
+# l = []
+# l.append(a)
+# l.append(b)
+# l.append(c)
+#
+# if (2, 3) in l:
+#     print(True)
+# else:
+#     print(False)
