@@ -22,8 +22,10 @@ from scipy.sparse.csgraph import minimum_spanning_tree
 #     print(pq.get()[1])
 
 #
-# b = BasicGraph("mediumMaze.txt")
-# b.initGraph()
+b = BasicGraph("mediumMaze.txt")
+b.initGraph()
+print(b.graph_n)
+print(type(b.graph_n))
 #
 # closepoint = b.getCloseDict(b.graph_n)
 # # print(closepoint)
@@ -147,6 +149,7 @@ from scipy.sparse.csgraph import minimum_spanning_tree
 # # a = Point(1,2)
 # # r = a.isInDict(b)
 # print(b[0])
+# print(b[(1, 3)])
 
 
 # print(abs(-1000))
@@ -156,24 +159,37 @@ from scipy.sparse.csgraph import minimum_spanning_tree
 # a = {1 : "1", 2 : "2"}
 # print(a[3])
 # print(type(a[2]))
-#
+# #
 # a = Point(1, 1)
 # a.F = 11
 # b = Point(2, 2)
 # b.F = 2
 # c = Point(3, 3)
-# c.F = 3
+# c.F = 8
 # # print(a.F)
 # q = []
 # heapq.heappush(q, b)
 # heapq.heappush(q, a)
 # heapq.heappush(q, c)
-# b.F = 13
-# heapq.heappush(q, b)
-# # obj = heapq.heappop(q)
-# # print(obj.getTuple())
+# q.remove(c)
+# c.F = 5
+# heapq.heappush(q, c)
+# # b.F = 13
+# # heapq.heappush(q, b)
+# obj = heapq.heappop(q)
+# print(obj.getTuple())
 # # print(type(q))
-# # print(len(q))
+
+# l = []
+# l.append(a)
+# l.append(b)
+# l.append(c)
+# l.sort()
+# for p in l:
+#     print(p.getTuple())
+
+
+# print(q)
 #
 # for i in range(10):
 #     try:
@@ -223,15 +239,15 @@ from scipy.sparse.csgraph import minimum_spanning_tree
 
 # a = np.array([[0, 8, 0, 3],[0, 0, 2, 5],[0, 0, 0, 6],[0, 0, 0, 0]])
 # print(a.shape)
-x = csr_matrix([[0, 8, 0, 3],[0, 0, 2, 5],[0, 0, 0, 6],[0, 0, 0, 0]])
-print(x)
-Tcsr = minimum_spanning_tree(x)
-r = Tcsr.toarray().astype(int)
-print(r)
-# print(type(r))
-# print("this is the first sum", sum(r))
-# print("this is the second sum", int(sum(sum(r))))
-print(type(int(sum(sum(r)))))
+# x = csr_matrix([[0, 8, 0, 3],[0, 0, 2, 5],[0, 0, 0, 6],[0, 0, 0, 0]])
+# print(x)
+# Tcsr = minimum_spanning_tree(x)
+# r = Tcsr.toarray().astype(int)
+# print(r)
+# # print(type(r))
+# # print("this is the first sum", sum(r))
+# # print("this is the second sum", int(sum(sum(r))))
+# print(type(int(sum(sum(r)))))
 
 # n = np.zeros((5, 5), dtype='int')
 # # n = n.tolist()
@@ -263,3 +279,21 @@ print(type(int(sum(sum(r)))))
 #     print(True)
 # else:
 #     print(False)
+
+#
+# a = [1, 2, 5 , 6, 3, 1, 2]
+# # for p in a:
+# #     print(p)
+# a = set(a)
+# print(len(a))
+# a.add(9)
+# print(len(a))
+# b= []
+# if b is
+
+# fh = open("hello.txt", "w")
+# lines_of_text = ["a line of text", "another line of text", "a third line"]
+# fh.writelines(lines_of_text)
+# fh.close()
+
+

@@ -2,6 +2,9 @@ import re
 import numpy as np
 import math
 import heapq
+from SearchAgent import *
+from State import *
+from Point import *
 
 class BasicGraph(object):
     def __init__(self, filename):
@@ -47,11 +50,7 @@ class BasicGraph(object):
         return point
 
     def findTarget(self, gn, target):
-        # p_n = np.where(gn == target)
-        # p_n = np.array(p_n)
-        # pairs1 = p_n[0]
-        # pairs2 = p_n[1]
-        # pairs = zip(pairs1, pairs2)
+
         points = []
         pairs = zip(*np.where(gn == target))
         pairs = list(pairs)
@@ -70,82 +69,46 @@ class BasicGraph(object):
             points[pair] = True
         return points
 
+
+    def getCloseList(self, gn, target = '%'):
+        points = []
+        pairs = zip(*np.where(gn == target))
+        pairs = list(pairs)
+        for pair in pairs:
+            points.append(Point(pair[0], pair[1]))
+        return points
+
+    def getCloseStateList(self, gn, target = '%'):
+        states = []
+        pairs = zip(*np.where(gn == target))
+        pairs = list(pairs)
+        for pair in pairs:
+            states.append(State(pair[0], pair[1], []))
+
+        return states
+
+
     def isClosePoint(self):
         pass
 
-    # surround for a_star
-    # def surround(self, curPos, closetuples, openlist, openpoints):
     def surround(self, curPos):
         nextPoss = []
-        # needUpdate = False
         for m in range(4):
             nextPos = Point(curPos.row + self.directionRow[m],
                             curPos.col + self.directionCol[m])
             nextPoss.append(nextPos)
         return nextPoss
-            # if nextPos.isClosed(closetuples):
-            #     # nextPoss.append(nextPos)
-            #     continue
-            # if nextPos.isInList(openlist):
-            #     if curPos.G + 1 < nextPos.G:
-            #         nextPos.G = curPos.G + 1
-            #         nextPos.updateF()
-            #         nextPos.last = curPos
-            #         # needUpdate = True
-            # else:
-            #     openlist.append(nextPos)
-            #     nextPos.last = curPos
-            #     nextPos.G = curPos.G + 1
-            #     nextPos.F
 
-
-
-
-class Point(object):
-    def __init__(self, row, col):
-        self.row = row
-        self.col = col
-        self.last = None
-        self.F = 0
-        self.G = math.inf
-        self.H = 0
-
-    def isPoint(self, point):
-        if self.row == point.row and self.col == point.col:
-            return True
-        else:
-            return False
-
-    def isInList(self, lst):
-        for point in lst:
-            if self.row == point.row and self.col == point.col:
-                return True
-        return False
-
-    def getTuple(self):
-        t = (self.row, self.col)
-        return t
-
-    def isInDict(self, dict):
-        t = (self.row, self.col)
-        try:
-            result = dict[t]
-        except:
-            result = False
-
-        return result
-
-    def isClosed(self, closedict):
-        t = self.getTuple()
-        try:
-            boo = closedict[t]
-        except KeyError:
-            return False
-        return closedict[t]
-
-    def __lt__(self, other):
-        return self.F < other.F
-
-    def updateF(self):
-        self.F = self.G + self.H
-
+    def surroundState(self, curstate):
+        nextstates = []
+        for m in range(4):
+            nextstate = State(curstate.row + self.directionRow[m],
+                              curstate.col + self.directionCol[m],
+                              curstate.remaintargets)
+            point = Point(curstate.row + self.directionRow[m],
+                            curstate.col + self.directionCol[m])
+            if not self.dirAvai(point):
+                continue
+            nextstate.updateRemainTargets()
+            nextstates.append(nextstate)
+        return nextstates
