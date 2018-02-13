@@ -74,7 +74,7 @@ def bfs(bg, path, start, targets):
                 curpoint = last_point
             path.reverse()
             path.append(target.getTuple())
-            print("bfs expand points: ", count)
+            # print("bfs expand points: ", count)
             return step
         closetuples[curpoint.getTuple()] = True
         nextpos = bg.surround(curpoint)
@@ -169,6 +169,7 @@ def a_star_multiple_targets_old2(bg, path, start, targets):
 
 
 def a_star_multiple_targets(bg, path, start, targets):
+    count = 0
     step_sum = 0
     visited = []
     # unvisited = []
@@ -192,25 +193,11 @@ def a_star_multiple_targets(bg, path, start, targets):
         except IndexError:
             print("No more point, no solution for this question")
             break
+
+        count = count + 1
         if not unvisited:
-            print("find the shorest way to the targets")
-            # print(len(visited))
-            # print(unvisited)
-            # print(curpoint.F)
-            # step = 0
-            # while True:
-            #     if curpoint.last is None:t
-            #         break
-            #
-            #     print("this is a tst")
-            #     last_point = curpoint.last
-            #     path.append(last_point.getTuple())
-            #     step = step + 1
-            #     curpoint = last_point
-            # path.reverse()
-            # path.append(visited[-1])
-            # path.remove(path[0])
-            return step_sum
+            print("a_star_mul expand points: ", count)
+            return len(path)
         if curpoint.isInList(unvisited):
             for u in unvisited:
                 if u.isPoint(curpoint):
@@ -259,7 +246,7 @@ def a_star_multiple_targets(bg, path, start, targets):
                 nextpoint.updateF()
                 nextpoint.last = curpoint
                 heapq.heappush(openlist, nextpoint)
-        print("loading ...")
+        # print("loading ...")
 
 
 def a_star_mul(bg, path, start, targets):
@@ -345,24 +332,43 @@ def a_star_mul(bg, path, start, targets):
                     heapq.heappush(pq, p)
         print("loading...")
 
-def a_star_mst(bg, startstate, targettuples):
-    start = Point(startstate.row, startstate.col)
-    targets = []
-    for targettuple in targettuples:
-        target = Point(targettuple[0], targettuple[1])
-        targets.append(target)
+# def a_star_mst(bg, startstate, targettuples):
+#     start = Point(startstate.row, startstate.col)
+#     targets = []
+#     for targettuple in targettuples:
+#         target = Point(targettuple[0], targettuple[1])
+#         targets.append(target)
+#
+#     point_num = len(targets) + 1
+#     graph_mst = np.zeros((point_num, point_num), dtype='int')
+#     graph_mst = graph_mst.tolist()
+#     dot_helper = [start]
+#     dot_helper.extend(targets)
+#
+#     for i in range(point_num):
+#         for j in range(i+1, point_num):
+#             temppath = []
+#             templist = [dot_helper[j]]
+#             # temp_dis = a_star(bg, temppath, dot_helper[i], templist)
+#             temp_dis = bfs(bg, temppath, dot_helper[i], templist)
+#             graph_mst[i][j] = temp_dis
+#     X = csr_matrix(graph_mst)
+#     Tcsr = minimum_spanning_tree(X)
+#     mst = Tcsr.toarray().astype(int)
+#     H = int(sum(sum(mst)))
+#     return H
 
+def a_star_mst(bg, start, targets):
+    graph_n = bg.graph_n
     point_num = len(targets) + 1
     graph_mst = np.zeros((point_num, point_num), dtype='int')
     graph_mst = graph_mst.tolist()
     dot_helper = [start]
     dot_helper.extend(targets)
-
     for i in range(point_num):
         for j in range(i+1, point_num):
             temppath = []
             templist = [dot_helper[j]]
-            # temp_dis = a_star(bg, temppath, dot_helper[i], templist)
             temp_dis = bfs(bg, temppath, dot_helper[i], templist)
             graph_mst[i][j] = temp_dis
     X = csr_matrix(graph_mst)
