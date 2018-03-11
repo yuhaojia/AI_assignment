@@ -7,6 +7,7 @@ class board:
 		self.rowlen = boardsize[0]
 		self.collen = boardsize[1]
 		self.grids = np.zeros((self.rowlen, self.collen), dtype=int)
+		self.laststep = None
 
 	def updateStep(self, step):
 		pass

@@ -27,22 +27,22 @@ class gomoku:
 		grids = self.board.grids
 		for i in range(self.boardsize[0]):
 			for j in range(self.boardsize[1]):
-				if i + 4 <= self.boardsize[0]:
+				if i + 4 < self.boardsize[0]:
 					if grids[i][j] == grids[i+1][j] == grids[i+2][j] == grids[i+3][j] == grids[i+4][j]:
 						self.end = True
 						self.winner = grids[i][j]
 						return
-				if j + 4 <= self.boardsize[1]:
+				if j + 4 < self.boardsize[1]:
 					if grids[i][j] == grids[i][j+1] == grids[i][j+2] == grids[i][j+3] == grids[i][j+4]:
 						self.end = True
 						self.winner = grids[i][j]
 						return
-				if i + 4 <= self.boardsize[0] and j + 4 <= self.boardsize[1]:
+				if i + 4 < self.boardsize[0] and j + 4 < self.boardsize[1]:
 					if grids[i][j] == grids[i+1][j+1] == grids[i+2][j+2] == grids[i+3][j+3] == grids[i+4][j+4]:
 						self.end = True
 						self.winner = grids[i][j]
 						return 
-				if i + 4 <= self.boardsize[0] and j - 4 >= 0:
+				if i + 4 < self.boardsize[0] and j - 4 >= 0:
 					if grids[i][j] == grids[i+1][j-1] == grids[i+2][j-2] == grids[i+3][j-3] == grids[i+4][j-4]:
 						self.end = True
 						self.winner = grids[i][j]
