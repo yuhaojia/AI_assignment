@@ -30,9 +30,6 @@ class player:
 		return nextstep
 
 	def reflex(self, board):
-		# print('test reflex')
-		# print(board.grids)
-
 
 		# dirrow = [0, 1, 0, -1]
 		# dircol = [-1, 0, 1, 0]
@@ -44,9 +41,12 @@ class player:
 			for j in range(board.collen):
 				if j + 3 < board.collen:
 					if grids[i][j] == grids[i][j+1] == grids[i][j+2] == grids[i][j+3] == self.ident:
+						print(i, j)
 						if self.checkGridAvai(board, (i, j-1)) is True:
+							# print(i,j)
 							return (i, j-1)
 						if self.checkGridAvai(board, (i, j+4)) is True:
+							# print(i, j)
 							return (i, j+4)
 				if i + 3 < board.rowlen:
 					if grids[i][j] == grids[i+1][j] == grids[i+2][j] == grids[i+3][j] == self.ident:
@@ -124,20 +124,6 @@ class player:
 							return (i-1, j+1)
 
 		# find the best winning block
-		# for i in range(board.rowlen):
-		# 	for j in range(board.collen):
-		# 		if j + 4 < board.collen:
-		# 			if grid[i][j] == grids[i][j+1] == grids[i][j+2] == grids[i][j+3] == grids[i][j+4] != self.oppo:
-		# 				count = 0
-		# 				left_grid = 0
-		# 				down_grid = i
-		# 				for c in range(5):
-		# 					if grids[i][j+c] == self.ident:
-		# 						count = count + 1
-		# 				for c in range(5):
-		# 					if grids[i][j+c] == self.ident:
-		# 						if checkGridAvai is True:
-
 		if board.laststep is not None:
 			for winningblock in self.winningblocks:
 				if board.laststep in winningblock:
@@ -153,9 +139,6 @@ class player:
 			count = winningblock_value.count(self.ident)
 			winningblock_value_np = np.array(winningblock_value)
 			nonzero_index = np.nonzero(winningblock_value_np)
-			# print(type(nonzero_index))
-			# print(nonzero_index)
-			# nonzero_index = np.array([2,3,4])
 			if nonzero_index[0].size is 0:
 				index = 0
 			else:
@@ -169,34 +152,12 @@ class player:
 							break
 				else:
 					index = first_nonzero - 1
-			# print(index)
 			left = winningblock[index][1]
 			down = winningblock[index][0]
 			winningblocks_helper.append((count, left, down))
 		sort_wb = sorted(winningblocks_helper, key=cmp_to_key(self.cmp))
-		# print(sort_wb)
-
-
 		choice = sort_wb[0]
 		return (choice[2], choice[1])
-
-
-			# for grid in winningblock:
-			# 	count = 0
-			# 	left = board.collen
-			# 	down = 0
-			# 	grid_value = grids[grid[0]][grid[1]]
-			# 	if grid_value == self.ident:
-			# 		count = count + 1
-			# 		pass
-
-			
-
-
-
-
-
-
 
 	def minimax(self):
 		pass
@@ -206,7 +167,7 @@ class player:
 
 	# type of grid: tuple
 	def checkGridAvai(self, board, coord):
-		if coord[0] > 0 and coord[0] <= board.rowlen and coord[1] > 0 and coord[1] <= board.collen:
+		if coord[0] >= 0 and coord[0] < board.rowlen and coord[1] >= 0 and coord[1] < board.collen:
 			if board.grids[coord[0]][coord[1]] == 0:
 				return True
 		else:
@@ -262,12 +223,4 @@ class player:
 						cur_block.append((i+h, j-h))
 					cur_block.reverse()
 					self.winningblocks.append(cur_block)
-
-
-
-
-
-
-
-
 

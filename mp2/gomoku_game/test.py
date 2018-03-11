@@ -22,18 +22,19 @@ C = [A, B]
 # # print(C)
 
 b = board((7,7))
-b.grids[1][3] = 1
-# b.grids[3][1] = 1
-# b.grids[3][2] = 2
-# b.grids[3][3] = 2
-# b.grids[3][4] = 2
-# b.grids[3][5] = 1
-# b.grids[5][6] = 2
-# b.grids[5][2] = 2
-# b.grids[4][2] = 1
-# b.grids[0][2] = 1
-b.grids[2][3] = 1
-# b.grids[2][2] = 2
+# b.grids[1][2] = 1
+b.grids[3][1] = 2
+b.grids[3][2] = 2
+b.grids[3][3] = 2
+b.grids[3][4] = 2
+b.grids[3][5] = 1
+b.grids[5][6] = 2
+b.grids[5][2] = 2
+b.grids[4][2] = 1
+b.grids[0][2] = 1
+# b.grids[2][3] = 1
+# b.grids[1][3] = 1 
+# b.grids[2][3] = 1
 # b.grids[4][4] = 2
 # b.grids[6][2] = 1
 print(b.grids)
@@ -42,6 +43,7 @@ p = player(0,3,1)
 p.init_winningblocks(b)
 # print(p.winningblocks)
 m = p.move(b,1)
+# b.updateStep(m, 1)
 print(m)
 # print(b.grids)
 t = sorted(C, key=cmp_to_key(p.cmp))
