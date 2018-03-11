@@ -124,29 +124,35 @@ class player:
 							return (i-1, j+1)
 
 		# find the best winning block
-		if board.laststep is not None:
-			for winningblock in self.winningblocks:
-				if board.laststep in winningblock:
-					self.winningblocks.remove(winningblock)
+		# if board.laststep is not None:
+		# 	for winningblock in self.winningblocks:
+		# 		if board.laststep in winningblock:
+		# 			# print('dsdfs',board.laststep)
+		# 			self.winningblocks.remove(winningblock)
+					# print(winningblock)
 
+
+		self.init_winningblocks(board)
+		if not self.winningblocks:
+			return -1
 		winningblocks_helper = []
 		for winningblock in self.winningblocks:
 			winningblock_value = []
 			for grid in winningblock:
 				v = grids[grid[0]][grid[1]]
 				winningblock_value.append(v)
-			# print(winningblock_value)
 			count = winningblock_value.count(self.ident)
 			winningblock_value_np = np.array(winningblock_value)
 			nonzero_index = np.nonzero(winningblock_value_np)
 			if nonzero_index[0].size is 0:
 				index = 0
 			else:
-				# print(nonzero_index)
 				first_nonzero = nonzero_index[0][0]
+				# print(first_nonzero)
 				index = 0
-				if first_nonzero is 0:
+				if first_nonzero == 0:
 					for k in range(1,5):
+						# print("this is the value k:", k)
 						if winningblock_value[k] == 0:
 							index = k
 							break
@@ -157,7 +163,19 @@ class player:
 			winningblocks_helper.append((count, left, down))
 		sort_wb = sorted(winningblocks_helper, key=cmp_to_key(self.cmp))
 		choice = sort_wb[0]
+		print('choice',choice[2], choice[1])
 		return (choice[2], choice[1])
+
+		# for i in range(board.rowlen):
+		# 	for j in range(board.collen):
+		# 		if j+4 < board.collen:
+		# 			count = 0
+		# 			for k in range(5):
+		# 				if grids[i][j+k] != self.oppo:
+
+
+
+
 
 	def minimax(self):
 		pass
@@ -198,29 +216,100 @@ class player:
 					return 0
 
 	def init_winningblocks(self, board):
+		# for i in range(board.rowlen):
+		# 	for j in range(board.collen):
+		# 		# if i == 6 and j == 1:
+		# 			# print()
+
+		# 		if j+4 < board.collen:
+		# 			cur_block = []
+		# 			for h in range(5):
+		# 				cur_block.append((i, j+h))
+		# 			# cur_block.reverse()
+		# 			self.winningblocks.append(cur_block)
+		# 		if i+4 < board.rowlen:
+		# 			cur_block = []
+		# 			for h in range(5):
+		# 				cur_block.append((i+h, j))
+		# 			cur_block.reverse()
+		# 			self.winningblocks.append(cur_block)
+		# 		if i+4 < board.rowlen and j+4 < board.collen:
+		# 			cur_block = []
+		# 			for h in range(5):
+		# 				cur_block.append((i+h, j+h))
+		# 			self.winningblocks.append(cur_block)
+		# 		if i+4 < board.rowlen and j-4 >=0:
+		# 			cur_block = []
+		# 			for h in range(5):
+		# 				cur_block.append((i+h, j-h))
+		# 			cur_block.reverse()
+		# 			self.winningblocks.append(cur_block)
+
+		# for wb in self.winningblocks:
+		# 	print(wb)
+		# print('wb size',len(self.winningblocks))
+		# for i in range(board.rowlen):
+		# 	for j in range(board.collen):
+		# 		if board.grids[i][j] == self.oppo:
+		# 			print('wb size2', len(self.winningblocks))
+		# 			count = 0
+		# 			for winningblock in self.winningblocks:
+		# 				print(winningblock)
+		# 				count += 1
+		# 				print('count', count)
+		# 				# if (i, j) in winningblock:
+		# 				# 	# print((i,j))
+		# 				# 	self.winningblocks.remove(winningblock)
+		# 				# 	# print('remove wb', winningblock)
+		wbs = []
+		grids = board.grids
 		for i in range(board.rowlen):
 			for j in range(board.collen):
 				if j+4 < board.collen:
 					cur_block = []
-					for h in range(5):
-						cur_block.append((i, j+h))
-					# cur_block.reverse()
-					self.winningblocks.append(cur_block)
+					cur_bool = True
+					for k in range(5):
+						if grids[i][j+k] == self.oppo:
+							cur_bool = False
+							break
+						cur_block.append((i, j+k))
+					if cur_bool is True:
+						wbs.append(cur_block)
+
 				if i+4 < board.rowlen:
 					cur_block = []
-					for h in range(5):
-						cur_block.append((i+h, j))
-					cur_block.reverse()
-					self.winningblocks.append(cur_block)
+					cur_bool = True
+					for k in range(5):
+						if grids[i+k][j] == self.oppo:
+							cur_bool = False
+							break
+						cur_block.append((i+k, j))
+					if cur_bool is True:
+						cur_block.reverse()
+						wbs.append(cur_block)
+
 				if i+4 < board.rowlen and j+4 < board.collen:
 					cur_block = []
-					for h in range(5):
-						cur_block.append((i+h, j+h))
-					self.winningblocks.append(cur_block)
+					cur_bool = True
+					for k in range(5):
+						if grids[i+k][j+k] == self.oppo:
+							cur_bool = False
+							break
+						cur_block.append((i+k, j+k))
+					if cur_bool is True:
+						wbs.append(cur_block)
+
 				if i+4 < board.rowlen and j-4 >=0:
 					cur_block = []
-					for h in range(5):
-						cur_block.append((i+h, j-h))
-					cur_block.reverse()
-					self.winningblocks.append(cur_block)
+					cur_bool = True
+					for k in range(5):
+						if grids[i+k][j-k] == self.oppo:
+							cur_bool = False
+							break
+						cur_block.append((i+k, j-k))
+					if cur_bool is True:
+						cur_block.reverse()
+						wbs.append(cur_block)
+		self.winningblocks = wbs
+
 

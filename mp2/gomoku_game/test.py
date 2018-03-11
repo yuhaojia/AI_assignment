@@ -22,16 +22,23 @@ C = [A, B]
 # # print(C)
 
 b = board((7,7))
-# b.grids[1][2] = 1
-b.grids[3][1] = 2
-b.grids[3][2] = 2
-b.grids[3][3] = 2
-b.grids[3][4] = 2
-b.grids[3][5] = 1
-b.grids[5][6] = 2
-b.grids[5][2] = 2
-b.grids[4][2] = 1
-b.grids[0][2] = 1
+# # b.grids[1][2] = 1
+b.grids[6][0] = 1
+b.grids[6][1] = 1
+b.grids[6][2] = 1
+b.grids[6][3] = 2
+# b.grids[5][0] = 2
+# b.grids[5][1] = 2
+# b.grids[5][2] = 2
+# b.grids[5][3] = 1
+# b.grids[2][3] = 1
+# b.grids[3][3] = 1
+# b.grids[4][3] = 1
+# b.grids[3][5] = 1
+# b.grids[5][6] = 2
+# b.grids[5][2] = 2
+# b.grids[4][2] = 1
+# b.grids[0][2] = 1
 # b.grids[2][3] = 1
 # b.grids[1][3] = 1 
 # b.grids[2][3] = 1
@@ -39,14 +46,18 @@ b.grids[0][2] = 1
 # b.grids[6][2] = 1
 print(b.grids)
 
-p = player(0,3,1)
+p = player(0,1,1)
 p.init_winningblocks(b)
-# print(p.winningblocks)
+# print('fsjdhkfkas',len(p.winningblocks))
 m = p.move(b,1)
+# print(len(p.winningblocks))
+# for winningblock in p.winningblocks:
+# 	print(winningblock)
+# print(p.oppo)
 # b.updateStep(m, 1)
 print(m)
 # print(b.grids)
-t = sorted(C, key=cmp_to_key(p.cmp))
+# t = sorted(C, key=cmp_to_key(p.cmp))
 # print(t)
 
 
@@ -78,14 +89,28 @@ t = sorted(C, key=cmp_to_key(p.cmp))
 
 
 # li = [0 ,0 ,5 ,0 ,0 , 1]
-# li = [0, 0, 0]
-# li = np.array(li)
+# # li = [0, 0, 0]
+# # li = np.array(li)
 # nonz = np.nonzero(li)
 # # cont = li.count(1)
 # # print(cont)
-# # print(nonz[0][0])
+# print(nonz[0][0])
 # # print(li.size)
 
 # print(nonz[0].size)
 
 
+
+
+# E = [(1,2), (3,4), (5,6), (7,8)]
+# b = (3,4)
+# if b in E:
+# 	print(True)
+# else:
+# 	print(False)
+
+# t = [(6, 1), (6, 2), (6, 3), (6, 4), (6, 5)]
+# if (6, 3) in t:
+# 	print(True)
+# else:
+# 	print(False)
