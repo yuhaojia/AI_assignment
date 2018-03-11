@@ -149,7 +149,38 @@ class player:
 			for grid in winningblock:
 				v = grids[grid[0]][grid[1]]
 				winningblock_value.append(v)
+			# print(winningblock_value)
 			count = winningblock_value.count(self.ident)
+			winningblock_value_np = np.array(winningblock_value)
+			nonzero_index = np.nonzero(winningblock_value_np)
+			# print(type(nonzero_index))
+			# print(nonzero_index)
+			# nonzero_index = np.array([2,3,4])
+			if nonzero_index[0].size is 0:
+				index = 0
+			else:
+				# print(nonzero_index)
+				first_nonzero = nonzero_index[0][0]
+				index = 0
+				if first_nonzero is 0:
+					for k in range(1,5):
+						if winningblock_value[k] == 0:
+							index = k
+							break
+				else:
+					index = first_nonzero - 1
+			# print(index)
+			left = winningblock[index][1]
+			down = winningblock[index][0]
+			winningblocks_helper.append((count, left, down))
+		sort_wb = sorted(winningblocks_helper, key=cmp_to_key(self.cmp))
+		# print(sort_wb)
+
+
+		choice = sort_wb[0]
+		return (choice[2], choice[1])
+
+
 			# for grid in winningblock:
 			# 	count = 0
 			# 	left = board.collen
@@ -205,19 +236,20 @@ class player:
 				else :
 					return 0
 
-	def init_winningblocks(self, boead):
+	def init_winningblocks(self, board):
 		for i in range(board.rowlen):
-			for j in range(collen):
+			for j in range(board.collen):
 				if j+4 < board.collen:
 					cur_block = []
 					for h in range(5):
 						cur_block.append((i, j+h))
-					cur_block.reverse()
+					# cur_block.reverse()
 					self.winningblocks.append(cur_block)
 				if i+4 < board.rowlen:
 					cur_block = []
 					for h in range(5):
 						cur_block.append((i+h, j))
+					cur_block.reverse()
 					self.winningblocks.append(cur_block)
 				if i+4 < board.rowlen and j+4 < board.collen:
 					cur_block = []
