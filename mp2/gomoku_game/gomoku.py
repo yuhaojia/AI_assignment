@@ -85,7 +85,14 @@ class gomoku:
 				step = self.player1.move(self.board, 1)
 				end_time = time()
 				self.time1 += end_time - start_time
+				# if step == -1:
+				# 	print('no winningblocks, tie')
+				# 	break
 				if step == -1:
+					# print('no winningblocks, tie')
+					step = self.player1.randomstep(self.board)
+					# break
+				if step == -2:
 					print('no winningblocks, tie')
 					break
 				self.board.updateStep(step, 1)
@@ -107,8 +114,13 @@ class gomoku:
 				end_time = time()
 				self.time2 += end_time - start_time
 				if step == -1:
+					# print('no winningblocks, tie')
+					step = self.player2.randomstep(self.board)
+					# break
+				if step == -2:
 					print('no winningblocks, tie')
 					break
+
 				self.board.updateStep(step, 2)
 				self.board.laststep = step
 				# print(self.board.laststep)

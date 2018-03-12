@@ -211,6 +211,8 @@ class player:
 					node = node + 1
 					curscore = self.getScore(curboard4)
 					tscore.append(curscore)
+				if not tscore:
+					return -1
 				tmaxscore = max(tscore)
 				sscore.append(tmaxscore)
 			sminscore = min(sscore)
@@ -547,6 +549,15 @@ class player:
 				if count == 5:
 					return True
 		return False
+
+
+	def randomstep(self, board):
+		for i in range(board.rowlen):
+			for j in range(board.collen):
+				if board.grids[i][j] == 0:
+					step = (i, j)
+					return step
+		return -2
 
 
 

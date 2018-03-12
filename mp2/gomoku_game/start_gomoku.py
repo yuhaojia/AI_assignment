@@ -8,7 +8,7 @@ DEPTH = 3
 
 # strategy: 0 - reflex, 1 - minimax, 2 - alphabeta
 player1_strategy = 2
-player2_strategy = 2
+player2_strategy = 1
 
 
 
