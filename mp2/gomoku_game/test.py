@@ -3,6 +3,7 @@ from gomoku_agent import *
 from gomoku_board import *
 from gomoku_agent import *
 from functools import cmp_to_key
+from pprint import pprint
 
 # a = 1
 # b = 1
@@ -47,11 +48,11 @@ b.grids[2][1] = 1
 # b.grids[2][3] = 1
 # b.grids[4][4] = 2
 # b.grids[6][2] = 1
-print(b.grids)
+# print(b.grids)
 
-p = player(1,1,1)
-boo = p.checkChainFive(b, 1)
-print(boo)
+# p = player(1,1,1)
+# boo = p.checkChainFive(b, 1)
+# print(boo)
 # s = p.getScore(b)
 # print(s)
 # p.init_winningblocks(b)
@@ -96,7 +97,8 @@ print(boo)
 # print(C)
 
 
-# li = [0 ,0 ,5 ,0 ,0 , 1]
+li = [0 , 'A',5 ,0 ,0 , 1]
+# print(li)
 # # li = [0, 0, 0]
 # # li = np.array(li)
 # nonz = np.nonzero(li)
@@ -122,4 +124,34 @@ print(boo)
 # 	print(True)
 # else:
 # 	print(False)
+
+# a= None 
+# a = 0
+# a = None 
+# if a is None:
+# 	print(True)
+# else:
+# 	print(False)
+
+
+c = chr(97)
+A = chr(65)
+print(repr(c))
+
+
+# print(('.', end='').center)
+# print('.', end='')
+# print('A', end='')
+# print('.', end='')
+# print('.', end='')
+# print('\n')
+# print('.', end='')
+# print('.', end='')
+# print
+
+k = ''
+# k = '{}{}'.format('.', '.')
+k = k + '.'
+k = k + '.'
+print(k)
 

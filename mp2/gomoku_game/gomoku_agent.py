@@ -2,6 +2,7 @@ import numpy as np
 from gomoku_board import *
 from time import time
 from functools import cmp_to_key
+import math
 
 class player:
 	def __init__(self, strategy,depth, ident):
@@ -26,7 +27,7 @@ class player:
 		elif self.strategy is 1:
 			nextstep = self.minimax(board)
 		else:
-			nextstep = self.alphabeta()
+			nextstep = self.alphabeta(board)
 		return nextstep
 
 	def reflex(self, board):
@@ -100,28 +101,28 @@ class player:
 			for j in range(board.collen):
 				if j + 2 < board.collen:
 					if grids[i][j] == grids[i][j+1] == grids[i][j+2] == self.oppo:
-						if self.checkGridAvai(board, (i, j-1)) is True:
+						if self.checkGridAvai(board, (i, j-1)) is True and self.checkGridAvai(board, (i, j+3)) is True:
 							return (i, j-1)
-						if self.checkGridAvai(board, (i, j+3)) is True:
-							return (i, j+3)
+						# if self.checkGridAvai(board, (i, j+3)) is True:
+						# 	return (i, j+3)
 				if i + 2 < board.rowlen:
 					if grids[i][j] == grids[i+1][j] == grids[i+2][j] == self.oppo:
-						if self.checkGridAvai(board, (i+3, j)) is True:
+						if self.checkGridAvai(board, (i+3, j)) is True and self.checkGridAvai(board, (i-1, j)) is True:
 							return (i+3, j)
-						if self.checkGridAvai(board, (i-1, j)) is True:
-							return (i-1, j)
+						# if self.checkGridAvai(board, (i-1, j)) is True:
+						# 	return (i-1, j)
 				if i + 2 < board.rowlen and j + 2 < board.collen:
 					if grids[i][j] == grids[i+1][j+1] == grids[i+2][j+2] == self.oppo:
-						if self.checkGridAvai(board, (i-1, j-1)) is True:
+						if self.checkGridAvai(board, (i-1, j-1)) is True and self.checkGridAvai(board, (i+3, j+3)) is True:
 							return (i-1, j-1)
-						if self.checkGridAvai(board, (i+3, j+3)) is True:
-							return (i+3, j+3)
+						# if self.checkGridAvai(board, (i+3, j+3)) is True:
+						# 	return (i+3, j+3)
 				if i + 2 < board.boardsize[0] and j - 2 >= 0:
 					if grids[i][j] == grids[i+1][j-1] == grids[i+2][j-2] == self.oppo:
-						if self.checkGridAvai(board, (i+3, j-3)) is True:
+						if self.checkGridAvai(board, (i+3, j-3)) is True and self.checkGridAvai(board, (i-1, j+1)) is True:
 							return (i+3, j-3)
-						if self.checkGridAvai(board, (i-1, j+1)) is True:
-							return (i-1, j+1)
+						# if self.checkGridAvai(board, (i-1, j+1)) is True:
+						# 	return (i-1, j+1)
 
 		# find the best winning block
 		# if board.laststep is not None:
@@ -163,7 +164,7 @@ class player:
 			winningblocks_helper.append((count, left, down))
 		sort_wb = sorted(winningblocks_helper, key=cmp_to_key(self.cmp))
 		choice = sort_wb[0]
-		print('choice',choice[2], choice[1])
+		# print('choice',choice[2], choice[1])
 		return (choice[2], choice[1])
 
 		# for i in range(board.rowlen):
@@ -174,6 +175,7 @@ class player:
 		# 				if grids[i][j+k] != self.oppo:
 
 	def minimax(self, board):
+		node = 0
 		avai_grids = self.getAvaiGrids(board)
 		curboard1 = board.getcopy()
 		fscore = []
@@ -206,22 +208,32 @@ class player:
 					# print('test')
 					curboard4 = curboard3.getcopy()
 					curboard4.grids[tstep[0]][tstep[1]] = self.ident
+					node = node + 1
 					curscore = self.getScore(curboard4)
 					tscore.append(curscore)
 				tmaxscore = max(tscore)
 				sscore.append(tmaxscore)
 			sminscore = min(sscore)
-			fscore_dict[sminscore] = fstep
+			# fscore_dict[sminscore] = fstep
+			fscore_dict[fstep] = sminscore
 			fscore.append(sminscore)
 		fmaxscore = max(fscore)
-		choice = fscore_dict[fmaxscore]
+		# choice = fscore_dict[fmaxscore]
+		choice = None
+		for fstep2 in avai_grids: 
+			if fscore_dict[fstep2] == fmaxscore:
+				choice = fstep2
+		print('The number of node', node)
+
 		return choice
 
-	def alphabeta(self):
+	def alphabeta(self, board):
+		node = 0 
 		avai_grids = self.getAvaiGrids(board)
 		curboard1 = board.getcopy()
 		fscore = []
 		fscore_dict = {}
+		standardscore = None
 		for fstep in avai_grids:
 			curboard2 = curboard1.getcopy()
 			curboard2.grids[fstep[0]][fstep[1]] = self.ident
@@ -230,7 +242,52 @@ class player:
 				return fstep
 			avai_grids2 = self.getAvaiGrids(curboard2)
 			sscore = []
-			standstardscore = 
+			for sstep in avai_grids2:
+				curboard3 = curboard2.getcopy()
+				curboard3.grids[sstep[0]][sstep[1]] = self.oppo
+				checkFive2 = self.checkChainFive(curboard3, self.oppo)
+				if checkFive2:
+					sscore.append(-1000000)
+					break
+
+				avai_grids3 = self.getAvaiGrids(curboard3)
+				tscore = []
+				for tstep in avai_grids3:
+					curboard4 = curboard3.getcopy()
+					curboard4.grids[tstep[0]][tstep[1]] = self.ident
+					node = node + 1
+					curscore = self.getScore(curboard4)
+					tscore.append(curscore)
+				tmaxscore = max(tscore)
+				skip = False
+				if standardscore is not None:
+					if tmaxscore < standardscore:
+						skip = True
+						break
+				sscore.append(tmaxscore)
+			if skip:
+				continue
+
+			sminscore = min(sscore)
+			if standardscore is None:
+				# print('standardscore valued')
+				# print(sminscore)
+				standardscore = sminscore
+				# print(standardscore)
+			# fscore_dict[sminscore] = fstep
+			fscore_dict[fstep] = sminscore
+			fscore.append(sminscore)
+		fmaxscore = max(fscore)
+		# choice = fscore_dict[fmaxscore]
+		choice = None
+		for fstep2 in avai_grids:
+			if fstep2 in fscore_dict.keys():
+				if fscore_dict[fstep2] == fmaxscore:
+					choice = fstep2
+		print('The number of node', node)
+
+		return choice
+
 
 	# type of grid: tuple
 	def checkGridAvai(self, board, coord):
@@ -448,9 +505,9 @@ class player:
 				if count == 5:
 					score = score + 10000000
 				elif count == 4:
-					score = score + 1000000
+					score = score + 100000
 				elif count == 3:
-					score = score + 10000
+					score = score + 1000
 				elif count == 2:
 					score = score + 100
 				elif count == 1:
@@ -462,14 +519,16 @@ class player:
 		if oppowbs_bool:
 			for owb in oppowbs:
 				owb_v = []
-				for g in owb_v:
+				for g in owb:
 					v = grids[g[0]][g[1]]
 					owb_v.append(v)
 				count = owb_v.count(oppo)
 				if count == 4:
-					score = score - 100000
+					score = score - 1000000
+					# score = score - 0
 				elif count == 3:
-					score = score - 1000
+					score = score - 10000
+					# score = score - 0
 		return score
 
 	def checkChainFive(self, board, p):

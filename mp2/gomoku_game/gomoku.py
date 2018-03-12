@@ -56,6 +56,28 @@ class gomoku:
 		print(self.board.grids)
 		self.player1.init_winningblocks(self.board)
 		self.player2.init_winningblocks(self.board)
+		result = [[0, 0, 0, 0, 0, 0, 0],
+				  [0, 0, 0, 0, 0, 0, 0],
+				  [0, 0, 0, 0, 0, 0, 0],
+				  [0, 0, 0, 0, 0, 0, 0],
+				  [0, 0, 0, 0, 0, 0, 0],
+				  [0, 0, 0, 0, 0, 0, 0],
+				  [0, 0, 0, 0, 0, 0, 0]]
+		asccounter1 = 97
+		asccounter2 = 65
+
+
+		# self.board.grids[5][1] = 1
+		# self.board.grids[1][5] = 2
+		# result[5][1] = chr(asccounter1)
+		# asccounter1 = asccounter1 + 1
+		# result[1][5] = chr(asccounter2)
+		# asccounter2 = asccounter2 + 1
+
+
+		# result = board(self.boardsize)
+		
+		
 		while self.end is False:
 			if self.turn == 1:
 				print('\nplayer1 round:')
@@ -71,6 +93,8 @@ class gomoku:
 				# print(self.board.laststep)
 				self.remaingrids -= 1
 				self.steps1.append(step)
+				result[step[0]][step[1]] = chr(asccounter1)
+				asccounter1 = asccounter1 + 1
 				print(step)
 				print(self.board.grids)
 				self.checkWin()
@@ -90,6 +114,8 @@ class gomoku:
 				# print(self.board.laststep)
 				self.remaingrids -= 1
 				self.steps2.append(step)
+				result[step[0]][step[1]] = chr(asccounter2)
+				asccounter2 = asccounter2 + 1
 				print(step)
 				print(self.board.grids)
 				self.checkWin()
@@ -97,7 +123,19 @@ class gomoku:
 				sleep(0.5)
 
 		print(self.board.grids)
-		print(self.end)
+		# print(result)
+		# print(self.end)
+		print('final result is: \n')
+		# s = ''
+		for r in result:
+			s = ''
+			for element in r:
+				if element == 0:
+					s = s + '.   '
+				else:
+					s = s + element + '   '
+			print(s)
+			print('\n')
 		if self.winner == 1:
 			print('winner is player1')
 		elif self.winner == 2:
