@@ -215,10 +215,14 @@ class player:
 					return -1
 				tmaxscore = max(tscore)
 				sscore.append(tmaxscore)
+			if not sscore:
+				return -1
 			sminscore = min(sscore)
 			# fscore_dict[sminscore] = fstep
 			fscore_dict[fstep] = sminscore
 			fscore.append(sminscore)
+		if not fscore:
+			return -1
 		fmaxscore = max(fscore)
 		# choice = fscore_dict[fmaxscore]
 		choice = None
@@ -244,6 +248,7 @@ class player:
 				return fstep
 			avai_grids2 = self.getAvaiGrids(curboard2)
 			sscore = []
+			skip = False
 			for sstep in avai_grids2:
 				curboard3 = curboard2.getcopy()
 				curboard3.grids[sstep[0]][sstep[1]] = self.oppo
@@ -271,7 +276,8 @@ class player:
 				sscore.append(tmaxscore)
 			if skip:
 				continue
-
+			if not sscore:
+				return -1
 			sminscore = min(sscore)
 			if standardscore is None:
 				# print('standardscore valued')
@@ -281,6 +287,8 @@ class player:
 			# fscore_dict[sminscore] = fstep
 			fscore_dict[fstep] = sminscore
 			fscore.append(sminscore)
+		if not fscore:
+			return -1
 		fmaxscore = max(fscore)
 		# choice = fscore_dict[fmaxscore]
 		choice = None
