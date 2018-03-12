@@ -260,6 +260,8 @@ class player:
 					node = node + 1
 					curscore = self.getScore(curboard4)
 					tscore.append(curscore)
+				if not tscore:
+					return -1
 				tmaxscore = max(tscore)
 				skip = False
 				if standardscore is not None:
