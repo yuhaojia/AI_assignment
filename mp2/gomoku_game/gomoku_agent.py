@@ -24,7 +24,7 @@ class player:
 			# nextstep = -1
 			nextstep = self.reflex(board)
 		elif self.strategy is 1:
-			nextstep = self.minimax()
+			nextstep = self.minimax(board)
 		else:
 			nextstep = self.alphabeta()
 		return nextstep
@@ -173,15 +173,64 @@ class player:
 		# 			for k in range(5):
 		# 				if grids[i][j+k] != self.oppo:
 
+	def minimax(self, board):
+		avai_grids = self.getAvaiGrids(board)
+		curboard1 = board.getcopy()
+		fscore = []
+		fscore_dict = {}
+		for fstep in avai_grids:
+			# print('test')
 
+			curboard2 = curboard1.getcopy()
+			curboard2.grids[fstep[0]][fstep[1]] = self.ident
+			checkFive1 = self.checkChainFive(curboard2, self.ident)
+			if checkFive1:
+				return fstep
+			avai_grids2 = self.getAvaiGrids(curboard2)
+			# score_step = {}
+			# step_score = {}
+			# score = []
+			sscore = []
+			for sstep in avai_grids2:
+				curboard3 = curboard2.getcopy()
+				curboard3.grids[sstep[0]][sstep[1]] = self.oppo
+				# tscore = []
+				checkFive2 = self.checkChainFive(curboard3, self.oppo)
+				if checkFive2:
+					sscore.append(-1000000)
+					break
 
-
-
-	def minimax(self):
-		pass
+				avai_grids3 = self.getAvaiGrids(curboard3)
+				tscore = []
+				for tstep in avai_grids3:
+					# print('test')
+					curboard4 = curboard3.getcopy()
+					curboard4.grids[tstep[0]][tstep[1]] = self.ident
+					curscore = self.getScore(curboard4)
+					tscore.append(curscore)
+				tmaxscore = max(tscore)
+				sscore.append(tmaxscore)
+			sminscore = min(sscore)
+			fscore_dict[sminscore] = fstep
+			fscore.append(sminscore)
+		fmaxscore = max(fscore)
+		choice = fscore_dict[fmaxscore]
+		return choice
 
 	def alphabeta(self):
-		pass
+		avai_grids = self.getAvaiGrids(board)
+		curboard1 = board.getcopy()
+		fscore = []
+		fscore_dict = {}
+		for fstep in avai_grids:
+			curboard2 = curboard1.getcopy()
+			curboard2.grids[fstep[0]][fstep[1]] = self.ident
+			checkFive1 = self.checkChainFive(curboard2, self.ident)
+			if checkFive1:
+				return fstep
+			avai_grids2 = self.getAvaiGrids(curboard2)
+			sscore = []
+			standstardscore = 
 
 	# type of grid: tuple
 	def checkGridAvai(self, board, coord):
@@ -311,5 +360,143 @@ class player:
 						cur_block.reverse()
 						wbs.append(cur_block)
 		self.winningblocks = wbs
+
+
+	def getAvaiGrids(self, board):
+		grids = board.grids
+		avai_grids = []
+		for r in range(board.rowlen):
+			for c in range(board.collen):
+				if grids[r][c] == 0:
+					avai_grids.append((r, c))
+		return avai_grids
+
+	def getwbs(self, board, ident):
+		wbs = []
+		grids = board.grids
+		oppo = 3 - ident
+		for i in range(board.rowlen):
+			for j in range(board.collen):
+				if j+4 < board.collen:
+					cur_block = []
+					cur_bool = True
+					for k in range(5):
+						if grids[i][j+k] == oppo:
+							cur_bool = False
+							break
+						cur_block.append((i, j+k))
+					if cur_bool is True:
+						wbs.append(cur_block)
+
+				if i+4 < board.rowlen:
+					cur_block = []
+					cur_bool = True
+					for k in range(5):
+						if grids[i+k][j] == oppo:
+							cur_bool = False
+							break
+						cur_block.append((i+k, j))
+					if cur_bool is True:
+						cur_block.reverse()
+						wbs.append(cur_block)
+
+				if i+4 < board.rowlen and j+4 < board.collen:
+					cur_block = []
+					cur_bool = True
+					for k in range(5):
+						if grids[i+k][j+k] == oppo:
+							cur_bool = False
+							break
+						cur_block.append((i+k, j+k))
+					if cur_bool is True:
+						wbs.append(cur_block)
+
+				if i+4 < board.rowlen and j-4 >=0:
+					cur_block = []
+					cur_bool = True
+					for k in range(5):
+						if grids[i+k][j-k] == oppo:
+							cur_bool = False
+							break
+						cur_block.append((i+k, j-k))
+					if cur_bool is True:
+						cur_block.reverse()
+						wbs.append(cur_block)
+		return wbs
+
+	def getScore(self, board):
+		ident = self.ident
+		oppo = self.oppo
+		mywbs = self.getwbs(board, ident)
+		oppowbs = self.getwbs(board, oppo)
+		mywbs_bool = True
+		oppowbs_bool = True
+		grids = board.grids
+		score = 0
+
+		if not mywbs:
+			mywbs_bool = False
+		if mywbs_bool:
+			# mwb_helper = []
+			# score = 0
+			for mwb in mywbs:
+				mwb_v = []
+				for g in mwb:
+					v = grids[g[0]][g[1]]
+					mwb_v.append(v)
+				count = mwb_v.count(ident)
+				if count == 5:
+					score = score + 10000000
+				elif count == 4:
+					score = score + 1000000
+				elif count == 3:
+					score = score + 10000
+				elif count == 2:
+					score = score + 100
+				elif count == 1:
+					score = score + 10
+				elif count == 0:
+					score = score + 1
+		if not oppowbs:
+			oppowbs_bool = False
+		if oppowbs_bool:
+			for owb in oppowbs:
+				owb_v = []
+				for g in owb_v:
+					v = grids[g[0]][g[1]]
+					owb_v.append(v)
+				count = owb_v.count(oppo)
+				if count == 4:
+					score = score - 100000
+				elif count == 3:
+					score = score - 1000
+		return score
+
+	def checkChainFive(self, board, p):
+		wbs = self.getwbs(board, p)
+		grids = board.grids
+		wbs_bool = True
+		if not wbs:
+			wbs_bool = False
+		if wbs_bool:
+			for wb in wbs:
+				wbs_v = []
+				for g in wb:
+					v = grids[g[0]][g[1]]
+					wbs_v.append(v)
+				count = wbs_v.count(p)
+				if count == 5:
+					return True
+		return False
+
+
+
+
+		
+		
+
+
+
+
 
 

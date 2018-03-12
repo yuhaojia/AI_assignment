@@ -22,11 +22,14 @@ C = [A, B]
 # # print(C)
 
 b = board((7,7))
-# # b.grids[1][2] = 1
-b.grids[6][0] = 1
-b.grids[6][1] = 1
-b.grids[6][2] = 1
-b.grids[6][3] = 2
+b.grids[0][0] = 1
+b.grids[0][1] = 1
+b.grids[0][2] = 1
+b.grids[0][3] = 1
+# b.grids[0][4] = 1
+b.grids[1][1] = 1
+b.grids[2][1] = 1
+# b.grids[6][3] = 2
 # b.grids[5][0] = 2
 # b.grids[5][1] = 2
 # b.grids[5][2] = 2
@@ -46,16 +49,21 @@ b.grids[6][3] = 2
 # b.grids[6][2] = 1
 print(b.grids)
 
-p = player(0,1,1)
-p.init_winningblocks(b)
+p = player(1,1,1)
+boo = p.checkChainFive(b, 1)
+print(boo)
+# s = p.getScore(b)
+# print(s)
+# p.init_winningblocks(b)
 # print('fsjdhkfkas',len(p.winningblocks))
-m = p.move(b,1)
+# m = p.move(b,1)
+# print(m)
 # print(len(p.winningblocks))
 # for winningblock in p.winningblocks:
 # 	print(winningblock)
 # print(p.oppo)
 # b.updateStep(m, 1)
-print(m)
+# print(m)
 # print(b.grids)
 # t = sorted(C, key=cmp_to_key(p.cmp))
 # print(t)
@@ -114,3 +122,4 @@ print(m)
 # 	print(True)
 # else:
 # 	print(False)
+

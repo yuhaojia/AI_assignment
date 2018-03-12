@@ -12,3 +12,6 @@ class board:
 	def updateStep(self, step, player_ident):
 		self.grids[step[0]][step[1]] = player_ident
 
+	def getcopy(self):
+		return deepcopy(self)
+
