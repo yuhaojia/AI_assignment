@@ -334,51 +334,6 @@ class player:
 					return 0
 
 	def init_winningblocks(self, board):
-		# for i in range(board.rowlen):
-		# 	for j in range(board.collen):
-		# 		# if i == 6 and j == 1:
-		# 			# print()
-
-		# 		if j+4 < board.collen:
-		# 			cur_block = []
-		# 			for h in range(5):
-		# 				cur_block.append((i, j+h))
-		# 			# cur_block.reverse()
-		# 			self.winningblocks.append(cur_block)
-		# 		if i+4 < board.rowlen:
-		# 			cur_block = []
-		# 			for h in range(5):
-		# 				cur_block.append((i+h, j))
-		# 			cur_block.reverse()
-		# 			self.winningblocks.append(cur_block)
-		# 		if i+4 < board.rowlen and j+4 < board.collen:
-		# 			cur_block = []
-		# 			for h in range(5):
-		# 				cur_block.append((i+h, j+h))
-		# 			self.winningblocks.append(cur_block)
-		# 		if i+4 < board.rowlen and j-4 >=0:
-		# 			cur_block = []
-		# 			for h in range(5):
-		# 				cur_block.append((i+h, j-h))
-		# 			cur_block.reverse()
-		# 			self.winningblocks.append(cur_block)
-
-		# for wb in self.winningblocks:
-		# 	print(wb)
-		# print('wb size',len(self.winningblocks))
-		# for i in range(board.rowlen):
-		# 	for j in range(board.collen):
-		# 		if board.grids[i][j] == self.oppo:
-		# 			print('wb size2', len(self.winningblocks))
-		# 			count = 0
-		# 			for winningblock in self.winningblocks:
-		# 				print(winningblock)
-		# 				count += 1
-		# 				print('count', count)
-		# 				# if (i, j) in winningblock:
-		# 				# 	# print((i,j))
-		# 				# 	self.winningblocks.remove(winningblock)
-		# 				# 	# print('remove wb', winningblock)
 		wbs = []
 		grids = board.grids
 		for i in range(board.rowlen):
@@ -506,8 +461,6 @@ class player:
 		if not mywbs:
 			mywbs_bool = False
 		if mywbs_bool:
-			# mwb_helper = []
-			# score = 0
 			for mwb in mywbs:
 				mwb_v = []
 				for g in mwb:

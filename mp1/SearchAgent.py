@@ -96,78 +96,6 @@ def a_star_get_manh(start, target):
     distance = row_dis + col_dis
     return distance
 
-# def a_star_multiple_targets_old(bg, path, start, targets):
-#     visited = []
-#     unvisited = []
-#     visited.append(start.getTuple())
-#     pairdis = {}
-#     step = 0
-#     index = 0
-#     curpath = []
-#     for target in targets:
-#         unvisited.append(target.getTuple())
-#
-#     while True:
-#         minpath = math.inf
-#         bestpair = [(0, 0), (0, 0)]
-#         for v in visited:
-#             for u in unvisited:
-#                 u_list = [u]
-#                 pathhelper = []
-#                 curpathlen = a_star(bg, pathhelper, v, u_list)
-#                 curpairstr = pairToString(v, u)
-#                 pairdis[curpairstr] = curpathlen
-#                 if curpathlen < minpath:
-#                     minpath = curpathlen
-#                     bestpair[0] = v
-#                     bestpair[1] = u
-#                     curpath = pathhelper
-#         visited.append(bestpair[1])
-#         unvisited.remove(bestpair[1])
-
-
-def a_star_multiple_targets_old2(bg, path, start, targets):
-    visited = []
-    unvisited = []
-    visited.append(start)
-    # path = []
-    step = 0
-    for target in targets:
-        unvisited.append(target)
-
-    while True:
-        if not unvisited:
-            print("find the shortest of multiple targets")
-            break
-
-        if not visited:
-            print("No start point")
-            return -1
-
-        nexttarget = None
-        curpoint = visited[-1]
-        minpathlen = math.inf
-        visited.append(nexttarget)
-        pathhelper = []
-        # curstep = 0
-        for u in unvisited:
-            u_list = [u]
-            pathhelper2 = []
-            curpathlen = a_star(bg, pathhelper2, curpoint, u_list)
-            # curpathlen = bfs(bg, pathhelper, curpoint, u_list)
-            if curpathlen < minpathlen:
-                minpathlen = curpathlen
-                visited[-1] = u
-                pathhelper = pathhelper2
-                # curstep = curpathlen
-        unvisited.remove(visited[-1])
-        # print(visited[-1].getTuple())
-        # print(minpathlen)
-        path.extend(pathhelper)
-        step = step + minpathlen
-    return step
-
-
 def a_star_multiple_targets(bg, path, start, targets):
     count = 0
     step_sum = 0
@@ -247,7 +175,6 @@ def a_star_multiple_targets(bg, path, start, targets):
                 nextpoint.last = curpoint
                 heapq.heappush(openlist, nextpoint)
         # print("loading ...")
-
 
 def a_star_mul(bg, path, start, targets):
     # index = 0
@@ -332,32 +259,6 @@ def a_star_mul(bg, path, start, targets):
                     heapq.heappush(pq, p)
         print("loading...")
 
-# def a_star_mst(bg, startstate, targettuples):
-#     start = Point(startstate.row, startstate.col)
-#     targets = []
-#     for targettuple in targettuples:
-#         target = Point(targettuple[0], targettuple[1])
-#         targets.append(target)
-#
-#     point_num = len(targets) + 1
-#     graph_mst = np.zeros((point_num, point_num), dtype='int')
-#     graph_mst = graph_mst.tolist()
-#     dot_helper = [start]
-#     dot_helper.extend(targets)
-#
-#     for i in range(point_num):
-#         for j in range(i+1, point_num):
-#             temppath = []
-#             templist = [dot_helper[j]]
-#             # temp_dis = a_star(bg, temppath, dot_helper[i], templist)
-#             temp_dis = bfs(bg, temppath, dot_helper[i], templist)
-#             graph_mst[i][j] = temp_dis
-#     X = csr_matrix(graph_mst)
-#     Tcsr = minimum_spanning_tree(X)
-#     mst = Tcsr.toarray().astype(int)
-#     H = int(sum(sum(mst)))
-#     return H
-
 def a_star_mst(bg, start, targets):
     graph_n = bg.graph_n
     point_num = len(targets) + 1
@@ -393,7 +294,6 @@ def getStatePath(cur):
         cur = cur.last
     path.remove(path[0])
     return path
-
 
 def a_star(bg, path, start, targets):
     count = 0
@@ -451,9 +351,6 @@ def a_star(bg, path, start, targets):
                     break
             path.extend(getPath(cur))
             return len(path)
-
-
-
 
 def a_star_multiple_food(bg, path, start, targets):
     whole_targets_tuple_list = []

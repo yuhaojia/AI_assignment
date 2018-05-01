@@ -14,7 +14,7 @@
       <file leaf-file-name="BasicGraph.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BasicGraph.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
+            <state relative-caret-position="-720">
               <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -26,7 +26,7 @@
       <file leaf-file-name="State.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/State.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
+            <state relative-caret-position="645">
               <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -35,26 +35,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SearchAgent.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SearchAgent.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SearchAgent.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="142" column="23" lean-forward="true" selection-start-line="142" selection-start-column="23" selection-end-line="142" selection-end-column="23" />
+            <state relative-caret-position="255">
+              <caret line="177" column="0" lean-forward="false" selection-start-line="177" selection-start-column="0" selection-end-line="177" selection-end-column="0" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
                 <element signature="e#222#1299#0" expanded="false" />
                 <element signature="e#1340#2399#0" expanded="false" />
                 <element signature="e#2444#2448#0" expanded="false" />
                 <element signature="e#2490#2622#0" expanded="false" />
-                <element signature="e#2624#2684#0" expanded="false" />
-                <element signature="e#4810#7330#0" expanded="false" />
-                <element signature="e#7379#10000#0" expanded="false" />
-                <element signature="e#10000#10047#0" expanded="false" />
-                <element signature="e#10968#11558#0" expanded="false" />
-                <element signature="e#11583#11710#0" expanded="false" />
-                <element signature="e#11739#11870#0" expanded="false" />
-                <element signature="e#11915#13662#0" expanded="false" />
-                <element signature="e#13723#15803#0" expanded="false" />
+                <element signature="e#2683#5203#0" expanded="false" />
+                <element signature="e#5251#7870#0" expanded="false" />
+                <element signature="e#7912#8502#0" expanded="false" />
+                <element signature="e#8527#8654#0" expanded="false" />
+                <element signature="e#8683#8814#0" expanded="false" />
+                <element signature="e#8858#10605#0" expanded="false" />
+                <element signature="e#10663#12743#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -72,7 +70,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tinySearch_a_star.txt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="tinySearch_a_star.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tinySearch_a_star.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
@@ -365,15 +363,13 @@
             <element signature="e#1340#2399#0" expanded="false" />
             <element signature="e#2444#2448#0" expanded="false" />
             <element signature="e#2490#2622#0" expanded="false" />
-            <element signature="e#2624#2684#0" expanded="false" />
-            <element signature="e#4810#7330#0" expanded="false" />
-            <element signature="e#7379#10000#0" expanded="false" />
-            <element signature="e#10000#10047#0" expanded="false" />
-            <element signature="e#10968#11558#0" expanded="false" />
-            <element signature="e#11583#11710#0" expanded="false" />
-            <element signature="e#11739#11870#0" expanded="false" />
-            <element signature="e#11915#13662#0" expanded="false" />
-            <element signature="e#13723#15803#0" expanded="false" />
+            <element signature="e#2683#5203#0" expanded="false" />
+            <element signature="e#5251#7870#0" expanded="false" />
+            <element signature="e#7912#8502#0" expanded="false" />
+            <element signature="e#8527#8654#0" expanded="false" />
+            <element signature="e#8683#8814#0" expanded="false" />
+            <element signature="e#8858#10605#0" expanded="false" />
+            <element signature="e#10663#12743#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -416,15 +412,13 @@
             <element signature="e#1340#2399#0" expanded="false" />
             <element signature="e#2444#2448#0" expanded="false" />
             <element signature="e#2490#2622#0" expanded="false" />
-            <element signature="e#2624#2684#0" expanded="false" />
-            <element signature="e#4810#7330#0" expanded="false" />
-            <element signature="e#7379#10000#0" expanded="false" />
-            <element signature="e#10000#10047#0" expanded="false" />
-            <element signature="e#10968#11558#0" expanded="false" />
-            <element signature="e#11583#11710#0" expanded="false" />
-            <element signature="e#11739#11870#0" expanded="false" />
-            <element signature="e#11915#13662#0" expanded="false" />
-            <element signature="e#13723#15803#0" expanded="false" />
+            <element signature="e#2683#5203#0" expanded="false" />
+            <element signature="e#5251#7870#0" expanded="false" />
+            <element signature="e#7912#8502#0" expanded="false" />
+            <element signature="e#8527#8654#0" expanded="false" />
+            <element signature="e#8683#8814#0" expanded="false" />
+            <element signature="e#8858#10605#0" expanded="false" />
+            <element signature="e#10663#12743#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -467,15 +461,13 @@
             <element signature="e#1340#2399#0" expanded="false" />
             <element signature="e#2444#2448#0" expanded="false" />
             <element signature="e#2490#2622#0" expanded="false" />
-            <element signature="e#2624#2684#0" expanded="false" />
-            <element signature="e#4810#7330#0" expanded="false" />
-            <element signature="e#7379#10000#0" expanded="false" />
-            <element signature="e#10000#10047#0" expanded="false" />
-            <element signature="e#10968#11558#0" expanded="false" />
-            <element signature="e#11583#11710#0" expanded="false" />
-            <element signature="e#11739#11870#0" expanded="false" />
-            <element signature="e#11915#13662#0" expanded="false" />
-            <element signature="e#13723#15803#0" expanded="false" />
+            <element signature="e#2683#5203#0" expanded="false" />
+            <element signature="e#5251#7870#0" expanded="false" />
+            <element signature="e#7912#8502#0" expanded="false" />
+            <element signature="e#8527#8654#0" expanded="false" />
+            <element signature="e#8683#8814#0" expanded="false" />
+            <element signature="e#8858#10605#0" expanded="false" />
+            <element signature="e#10663#12743#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -518,15 +510,13 @@
             <element signature="e#1340#2399#0" expanded="false" />
             <element signature="e#2444#2448#0" expanded="false" />
             <element signature="e#2490#2622#0" expanded="false" />
-            <element signature="e#2624#2684#0" expanded="false" />
-            <element signature="e#4810#7330#0" expanded="false" />
-            <element signature="e#7379#10000#0" expanded="false" />
-            <element signature="e#10000#10047#0" expanded="false" />
-            <element signature="e#10968#11558#0" expanded="false" />
-            <element signature="e#11583#11710#0" expanded="false" />
-            <element signature="e#11739#11870#0" expanded="false" />
-            <element signature="e#11915#13662#0" expanded="false" />
-            <element signature="e#13723#15803#0" expanded="false" />
+            <element signature="e#2683#5203#0" expanded="false" />
+            <element signature="e#5251#7870#0" expanded="false" />
+            <element signature="e#7912#8502#0" expanded="false" />
+            <element signature="e#8527#8654#0" expanded="false" />
+            <element signature="e#8683#8814#0" expanded="false" />
+            <element signature="e#8858#10605#0" expanded="false" />
+            <element signature="e#10663#12743#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -648,24 +638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BasicGraph.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tinySearch_a_star.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tinySearch.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -683,9 +655,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/SearchAgent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="177" column="0" lean-forward="false" selection-start-line="177" selection-start-column="0" selection-end-line="177" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#222#1299#0" expanded="false" />
+            <element signature="e#1340#2399#0" expanded="false" />
+            <element signature="e#2444#2448#0" expanded="false" />
+            <element signature="e#2490#2622#0" expanded="false" />
+            <element signature="e#2683#5203#0" expanded="false" />
+            <element signature="e#5251#7870#0" expanded="false" />
+            <element signature="e#7912#8502#0" expanded="false" />
+            <element signature="e#8527#8654#0" expanded="false" />
+            <element signature="e#8683#8814#0" expanded="false" />
+            <element signature="e#8858#10605#0" expanded="false" />
+            <element signature="e#10663#12743#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/State.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
+        <state relative-caret-position="645">
           <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
@@ -693,26 +686,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SearchAgent.py">
+    <entry file="file://$PROJECT_DIR$/BasicGraph.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="142" column="23" lean-forward="true" selection-start-line="142" selection-start-column="23" selection-end-line="142" selection-end-column="23" />
+        <state relative-caret-position="-720">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding>
-            <element signature="e#0#24#0" expanded="true" />
-            <element signature="e#222#1299#0" expanded="false" />
-            <element signature="e#1340#2399#0" expanded="false" />
-            <element signature="e#2444#2448#0" expanded="false" />
-            <element signature="e#2490#2622#0" expanded="false" />
-            <element signature="e#2624#2684#0" expanded="false" />
-            <element signature="e#4810#7330#0" expanded="false" />
-            <element signature="e#7379#10000#0" expanded="false" />
-            <element signature="e#10000#10047#0" expanded="false" />
-            <element signature="e#10968#11558#0" expanded="false" />
-            <element signature="e#11583#11710#0" expanded="false" />
-            <element signature="e#11739#11870#0" expanded="false" />
-            <element signature="e#11915#13662#0" expanded="false" />
-            <element signature="e#13723#15803#0" expanded="false" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tinySearch_a_star.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
